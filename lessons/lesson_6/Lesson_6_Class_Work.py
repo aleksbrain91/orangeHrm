@@ -19,6 +19,8 @@ Steps to Complete the Assignment:
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 import time
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 driver = webdriver.Chrome()
 driver.get("https://portnov_admin-trials711.orangehrmlive.com/client/#/dashboard")
@@ -34,22 +36,23 @@ sidebar_menu = driver.find_element(By.CSS_SELECTOR, '#left-menu[class="sidebar m
 if not sidebar_menu.is_displayed():
     sidebar_toggle.click()
     time.sleep(1)
-    # driver.find_element(By.XPATH, '//a/span[text()="HR Administration"][1]').click()
+    driver.find_element(By.XPATH, '//a/span[text()="HR Administration"][1]').click()
     # I suppose you meant to click on 'Employee Management' because 'HR Administration' doesn't have 'More' section
-    driver.find_element(By.XPATH, '//a/span[text()="Employee Management"][1]').click()
+    # driver.find_element(By.XPATH, '//a/span[text()="Employee Management"][1]').click()
 else:
-    # driver.find_element(By.XPATH, '//a/span[text()="HR Administration"][1]').click()
-    driver.find_element(By.XPATH, '//a/span[text()="Employee Management"][1]').click()
-time.sleep(3)
+    driver.find_element(By.XPATH, '//a/span[text()="HR Administration"][1]').click()
+    # driver.find_element(By.XPATH, '//a/span[text()="Employee Management"][1]').click()
+time.sleep(5)
 
-driver.find_element(By.XPATH, '//a[text()="More "]').click()
-more_dropdown = driver.find_elements(By.XPATH, "//a[contains(text(),'More ')]/following-sibling::sub-menu-container//a")
+more_section_element = WebDriverWait(driver, 5).until(EC.element_to_be_clickable((By.XPATH, '//a[text()="More "]')))
+more_section_element.click()
+# driver.find_element(By.XPATH, '//a[text()="More "]').click()
+more_dropdown = driver.find_elements(By.XPATH, "//a[contains(text(), 'More')]/following-sibling::sub-menu-container//a")
 more_dropdown_names = []
 for name in more_dropdown:
-    more_dropdown_names.append(name.text)
-print(more_dropdown_names)
-#I give up
-#I tried using XPath and CSS to find only the element from the 'More' section dropdown.
-# However, when searching for them in the DevTools on a webpage,
-# it found 16 elements that are truly related to the 'More' section. But PyCharm prints unexpected text and also text not from More section
+    text_name = name.text
+    text_name_cleaned = text_name.replace("oxd_menu_left", "")
+    if text_name_cleaned:
+        more_dropdown_names.append(text_name_cleaned)
+print(','.join(more_dropdown_names))
 driver.quit()
