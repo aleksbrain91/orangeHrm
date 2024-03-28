@@ -33,16 +33,16 @@ class StepHelper:
         return True
 
     def  click_on_element(self, locator, scrollInToView=False):
-        WebDriverWait(self.wd, 15).until(
+        WebDriverWait(self.wd, 10).until(
             EC.visibility_of_element_located((self.get_how(locator), locator)))
-        element = WebDriverWait(self.wd, 15).until(
+        element = WebDriverWait(self.wd, 10).until(
             EC.element_to_be_clickable((self.get_how(locator), locator))
         )
         if scrollInToView:
             self.wd.execute_script(
                 "arguments[0].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });", element)
             time.sleep(2)
-        ActionChains(self.wd).move_to_element(element).pause(1).click().perform()
+        ActionChains(self.wd).move_to_element(element).pause(2).click().perform()
 
     def input_text(self, locator, text):
         element = WebDriverWait(self.wd, 10).until(

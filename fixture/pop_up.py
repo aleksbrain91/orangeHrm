@@ -1,3 +1,5 @@
+import time
+
 from fixture.step import StepHelper
 from selenium.webdriver.remote.webdriver import WebDriver
 
@@ -16,6 +18,7 @@ class PopUp:
     confirm_pass_required_message = '//input[@id="confirmpassword"]/following::span[text()="Required"]'
     pass_length_message = '//input[@id="password"]/following::span[text()="Your password should have at least 8 characters."]'
     pass_strength_message = '.password-strength-check'
+    empty_space = '.password-help-text-container small'
 
     def __init__(self, step: StepHelper, wd: WebDriver):
         self.step = step
@@ -36,6 +39,11 @@ class PopUp:
     def click_on_save(self):
         self.step.click_on_element(self.save_button)
 
+    def click_on_empty(self):
+        time.sleep(2)
+        # ^ add this "sleep" because without it test cases 8,9,10,11 fails on last step
+        self.step.click_on_element(self.empty_space)
+
     def get_user_exist_error(self):
         return self.step.get_element_text(self.user_exists_error_massage)
 
@@ -55,6 +63,7 @@ class PopUp:
         return self.step.get_element_text(self.pass_length_message)
 
     def get_pass_strength_message(self):
+        self.step.specified_element_is_present(self.pass_strength_message, 30)
         return self.step.get_element_text(self.pass_strength_message)
 
 
