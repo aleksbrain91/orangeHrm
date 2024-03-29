@@ -3,7 +3,7 @@ from selenium.webdriver.common.by import By
 import time
 
 driver = webdriver.Chrome()
-driver.get("https://portnov_admin-trials711.orangehrmlive.com/client/#/dashboard")
+driver.get("https://portnov_administrator-trials712.orangehrmlive.com")
 
 driver.find_element(By.CSS_SELECTOR, "input[id='txtUsername']").send_keys("Admin")
 driver.find_element(By.CSS_SELECTOR, "input[id='txtPassword']").send_keys("qTJn5@5APu")
