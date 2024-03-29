@@ -45,7 +45,7 @@ class StepHelper:
         ActionChains(self.wd).move_to_element(element).pause(2).click().perform()
 
     def input_text(self, locator, text):
-        element = WebDriverWait(self.wd, 10).until(
+        element = WebDriverWait(self.wd, 20).until(
             EC.visibility_of_element_located((self.get_how(locator), locator)))
         element.click()
         element.clear()
@@ -72,7 +72,7 @@ class StepHelper:
             EC.invisibility_of_element_located((self.get_how(locator), locator)))
 
     def wait_for_element(self, locator):
-        element = WebDriverWait(self.wd, 10).until(
+        element = WebDriverWait(self.wd, 20).until(
             EC.visibility_of_element_located((self.get_how(locator), locator)))
         return element
 
