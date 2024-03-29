@@ -32,7 +32,7 @@ class StepHelper:
             return False
         return True
 
-    def  click_on_element(self, locator, scrollInToView=False):
+    def click_on_element(self, locator, scrollInToView=False):
         WebDriverWait(self.wd, 10).until(
             EC.visibility_of_element_located((self.get_how(locator), locator)))
         element = WebDriverWait(self.wd, 10).until(
@@ -42,10 +42,10 @@ class StepHelper:
             self.wd.execute_script(
                 "arguments[0].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });", element)
             time.sleep(2)
-        ActionChains(self.wd).move_to_element(element).pause(2).click().perform()
+        ActionChains(self.wd).move_to_element(element).pause(0.5).click().perform()
 
     def input_text(self, locator, text):
-        element = WebDriverWait(self.wd, 20).until(
+        element = WebDriverWait(self.wd, 10).until(
             EC.visibility_of_element_located((self.get_how(locator), locator)))
         element.click()
         element.clear()
@@ -72,7 +72,7 @@ class StepHelper:
             EC.invisibility_of_element_located((self.get_how(locator), locator)))
 
     def wait_for_element(self, locator):
-        element = WebDriverWait(self.wd, 20).until(
+        element = WebDriverWait(self.wd, 10).until(
             EC.visibility_of_element_located((self.get_how(locator), locator)))
         return element
 
@@ -108,7 +108,7 @@ class StepHelper:
         elements = self.get_list_of_elements(locator)
         for element in elements:
             ActionChains(self.wd).scroll_to_element(element).perform()
-            time.sleep(3)
+            time.sleep(1)
             name = element.text
             if name == text:
                 element.click()
