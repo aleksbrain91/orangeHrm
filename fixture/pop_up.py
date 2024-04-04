@@ -72,7 +72,7 @@ class PopUp:
 
     def click_on_user_name_filter(self):
         self.step.specified_element_is_present(self.user_name_filter_field, 10)
-        self.step.jsXpathClick(self.user_name_filter_field)
+        self.step.click_on_element(self.user_name_filter_field)
 
     def set_user_name_filter(self, text):
         self.step.input_text(self.user_name_filter_field, text)
