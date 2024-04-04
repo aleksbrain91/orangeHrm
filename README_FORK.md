@@ -61,24 +61,34 @@ To receive updates from the original course repository, configure it as an upstr
 
 ## Step 6: Pull Updates from the Original Repository
 
-Whenever there are updates announced, pull them from the upstream repository:
+To keep your project synchronized with the original repository, follow these steps whenever updates are announced:
 
-1. Fetch the updates from upstream:
+1. **Switch to Your Master Branch**: Ensure you're on your master branch.
+    ```bash
+    git checkout master
+    ```
 
+2. **Commit Any Uncommitted Changes**: Before pulling updates, make sure all your changes are committed. Check for any highlighted (uncommitted) files within your IDE. If any are found:
+   - **Commit the Changes**: If you wish to keep these changes, commit them.
+   - **Rollback Unwanted Changes**: If the changes are unnecessary, discard them.
+
+3. **Fetch the Updates from Upstream**:
     ```bash
     git fetch upstream
     ```
 
-2. Merge the updates into your main branch:
-
+4. **Merge the Updates into Your Master Branch**:
     ```bash
-    git checkout master
     git merge upstream/master
     ```
 
-3. If you have made changes that conflict with the updates, you may need to resolve conflicts.
+5. **Resolve Conflicts if Necessary**: If you encounter merge conflicts:
+   - A message will indicate which files have conflicts. 
+   - Navigate to your project's main folder, right-click, select `Git`, and then `Resolve Conflicts` to view the conflicted files.
+   - Open each conflicted file one by one to resolve the conflicts by choosing to keep your changes or apply the updates.
 
-Repeat these steps whenever you need to pull new updates from the original repository.
+Repeat these steps to ensure your project is always up to date with the latest changes from the original repository.
+
 
 ---
 
