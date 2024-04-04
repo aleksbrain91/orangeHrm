@@ -25,7 +25,6 @@ class HrAdministration:
     def click_filter_button(self):
         self.step.specified_element_is_present(self.filtered_usernames,30)
         self.step.click_on_element(self.filter_users_button)
-        self.step.wait_for_element(self.filter_popup_table)
 
     def get_filtered_usernames(self):
         self.step.wait_for_element(self.filtered_usernames)

@@ -9,6 +9,19 @@
 # 5. Start typing a known employee name in the 'Employee Name' field.
 # Expected Result:
 # As the user types, an autocomplete dropdown should appear with employee name suggestions.
+import time
+
+
+def test_case_7_filter_users_popup_validation_autocomplete(app):
+    app.orangeHrm.openUrl()
+    app.orangeHrm.login_to_the_application()
+    app.assert_that(app.orangeHrm.get_header_text()).is_equal_to('Employee Management')
+    app.orangeHrm.sideMenu.click_on_side_menu_button('HR Administration')
+    app.orangeHrm.hrAdministration.click_filter_button()
+    app.assert_that(app.orangeHrm.popUp.get_filter_table_name()).is_equal_to("Filter Users")
+    app.orangeHrm.popUp.click_on_employee_name_filter()
+    app.orangeHrm.popUp.set_employee_name_filter("Brody")
+    app.assert_that(app.orangeHrm.popUp.get_employee_name_dropdown_text()).contains("Brody Alan")
 
 # -----------------------------------------------------------------------------------
 
@@ -24,6 +37,17 @@
 # Expected Result:
 # A message indicating 'no results found' should appear if no employee names match the entered value.
 
+def test_case_7_1_filter_users_popup_validation_autocomplete(app):
+    app.orangeHrm.openUrl()
+    app.orangeHrm.login_to_the_application()
+    app.assert_that(app.orangeHrm.get_header_text()).is_equal_to('Employee Management')
+    app.orangeHrm.sideMenu.click_on_side_menu_button('HR Administration')
+    app.orangeHrm.hrAdministration.click_filter_button()
+    app.assert_that(app.orangeHrm.popUp.get_filter_table_name()).is_equal_to("Filter Users")
+    app.orangeHrm.popUp.click_on_employee_name_filter()
+    app.orangeHrm.popUp.set_employee_name_filter("jkllalnd")
+    app.assert_that(app.orangeHrm.popUp.get_employee_name_dropdown_warning_text()).is_equal_to("No results found")
+
 # -----------------------------------------------------------------------------------
 
 # Test Case 7_2: Verify Dropdown Default Values
@@ -36,6 +60,14 @@
 # 4. Click on the 'Filter Users' button.
 # Expected Result:
 # All dropdowns in the 'Filter Users' pop-up should display their default values.
+
+def test_case_7_2_filter_users_popup_validation_autocomplete(app):
+    app.orangeHrm.openUrl()
+    app.orangeHrm.login_to_the_application()
+    app.assert_that(app.orangeHrm.get_header_text()).is_equal_to('Employee Management')
+    app.orangeHrm.sideMenu.click_on_side_menu_button('HR Administration')
+    app.orangeHrm.hrAdministration.click_filter_button()
+    app.assert_that(app.orangeHrm.popUp.get_filter_table_name()).is_equal_to("Filter Users")
 
 # -----------------------------------------------------------------------------------
 
