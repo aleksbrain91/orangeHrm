@@ -23,6 +23,18 @@ class PopUp:
     employee_name_filter_dropdown = '.angucomplete-title'
     employee_name_filter_dropdown_warnings = '//div[@id="employee_name_filter_dropdown" and @class="angucomplete-dropdown"]/div[2]'
     ess_role_input_field = '#essroles_inputfileddiv input'
+    ess_role_dropdown = '#essroles_inputfileddiv li'
+    supervisor_role_input_field = '#supervisorroles_inputfileddiv input'
+    supervisor_role_dropdown = '#supervisorroles_inputfileddiv li'
+    location_input_field = '#location_inputfileddiv input'
+    location_dropdown = '#location_inputfileddiv li'
+    admin_role_input_field = '#adminroles_inputfileddiv input'
+    admin_role_dropdown = '#adminroles_inputfileddiv li'
+    status_input_field = '#status_inputfileddiv input'
+    status_dropdown = '#status_inputfileddiv li'
+    filter_reset_button = '//div[@class="modal modal-fixed-footer open"]//a[text()="Reset"]'
+    filter_cancel_button = '//div[@class="modal modal-fixed-footer open"]//a[text()="Cancel"]'
+
 
 
     def __init__(self, step: StepHelper, wd: WebDriver):
@@ -99,5 +111,80 @@ class PopUp:
         self.step.specified_element_is_present(self.employee_name_filter_dropdown_warnings, 10)
         return self.step.get_element_text(self.employee_name_filter_dropdown_warnings)
 
-    def get_ess_role_field_value(self):
-        self.step.select_dropdown_by_value()
+    def click_on_ess_role_input_field(self):
+        self.step.click_on_element(self.ess_role_input_field)
+        time.sleep(0.5)
+
+    def get_ess_role_dropdown_values(self):
+        return self.step.get_elements_texts(self.ess_role_dropdown)
+
+    def click_on_admin_role_input_field(self):
+        self.step.click_on_element(self.admin_role_input_field)
+        time.sleep(0.5)
+
+    def get_admin_role_dropdown_values(self):
+        return self.step.get_elements_texts(self.admin_role_dropdown)
+
+    def click_on_supervisor_role_input_filed(self):
+        self.step.click_on_element(self.supervisor_role_input_field)
+        time.sleep(0.5)
+
+    def get_supervisor_role_dropdown_values(self):
+        return self.step.get_elements_texts(self.supervisor_role_dropdown)
+
+    def click_on_status_input_field(self):
+        self.step.click_on_element(self.status_input_field)
+        time.sleep(0.5)
+
+    def get_status_dropdown_values(self):
+        return self.step.get_elements_texts(self.status_dropdown)
+
+    def click_on_location_input_field(self):
+        self.step.click_on_element(self.location_input_field)
+        time.sleep(0.5)
+
+    def get_location_dropdown_values(self):
+        return self.step.get_elements_texts(self.location_dropdown)
+
+    def set_ess_role_dropdown(self,text):
+        self.step.click_element_by_text(self.ess_role_dropdown,text)
+
+    def set_admin_role_dropdown(self,text):
+        self.step.click_element_by_text(self.admin_role_dropdown,text)
+
+    def set_supervisor_role_dropdown(self,text):
+        self.step.click_element_by_text(self.supervisor_role_dropdown,text)
+
+    def set_status_dropdown(self,text):
+        self.step.click_element_by_text(self.status_dropdown,text)
+
+    def set_location_dropdown(self,text):
+        self.step.click_element_by_text(self.location_dropdown,text)
+
+
+    def click_on_filter_reset_button(self):
+        self.step.click_on_element(self.filter_reset_button)
+
+    def get_value_from_user_name_filter_field(self):
+        return self.step.get_element_attribute_value(self.user_name_filter_field,"class")
+
+    def get_value_from_employee_name_filter_field(self):
+        return self.step.get_element_attribute_value(self.employee_name_filter_field,"class")
+
+    def get_value_from_ess_role_input_field(self):
+        return self.step.get_element_attribute_value(self.ess_role_input_field, "value")
+
+    def get_value_from_admin_role_input_field(self):
+        return self.step.get_element_attribute_value(self.admin_role_input_field, "value")
+
+    def get_value_from_supervisor_role_input_field(self):
+        return self.step.get_element_attribute_value(self.supervisor_role_input_field, "value")
+
+    def get_value_from_status_input_field(self):
+        return self.step.get_element_attribute_value(self.status_input_field, "value")
+
+    def get_value_from_location_input_field(self):
+        return self.step.get_element_attribute_value(self.location_input_field, "value")
+
+    def click_on_filter_cancel_button(self):
+        self.step.click_on_element(self.filter_cancel_button)

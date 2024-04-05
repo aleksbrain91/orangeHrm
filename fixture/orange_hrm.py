@@ -1,5 +1,6 @@
 import os
 
+from fixture.employee_management import EmployeeManagement
 from fixture.hr_administration import HrAdministration
 from fixture.pop_up import PopUp
 from fixture.side_menu import SideMenu
@@ -23,6 +24,7 @@ class OrangeHrm:
         self.wd = self.app.wd
         self.sideMenu = SideMenu(self.step, self.wd)
         self.hrAdministration = HrAdministration(self.step, self.wd)
+        self.employeeManagement = EmployeeManagement(self.step, self.wd)
         self.popUp = PopUp(self.step, self.wd)
 
     def openUrl(self, url = "https://portnov_administrator-trials712.orangehrmlive.com"):
