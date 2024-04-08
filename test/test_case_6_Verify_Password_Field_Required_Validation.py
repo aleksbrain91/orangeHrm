@@ -44,7 +44,7 @@ def test_case_6_1_Verify_Password_Minimum_Length_Validation(app):
     app.orangeHrm.popUp.click_on_password_field()
     app.orangeHrm.popUp.input_in_pass_field("0")
     app.orangeHrm.popUp.click_on_empty()
-    app.assert_that(app.orangeHrm.popUp.get_pass_field_length_message()).is_equal_to("Your password should have at least 8 characters.")
+    app.assert_that(app.orangeHrm.popUp.get_pass_required_message()).is_equal_to("Your password should have at least 8 characters.")
 
 
 

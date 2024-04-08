@@ -15,9 +15,8 @@ class PopUp:
     employee_name_filter_field = '#employee_name_filter_value'
     filter_popup_table = '//div[@class="modal modal-fixed-footer open"]//h4[text()="Filter Users"]'
     filter_search_button = '//div[@class="modal modal-fixed-footer open"]//a[text()="Search"]'
-    pass_required_message = '//input[@id="password"]/following::span[text()="Required"]'
-    confirm_pass_required_message = '//input[@id="confirmpassword"]/following::span[text()="Required"]'
-    pass_length_message = '//input[@id="password"]/following::span[text()="Your password should have at least 8 characters."]'
+    pass_required_message = '//input[@id="password"]/following-sibling::span'
+    confirm_pass_required_message = '//input[@id="confirmpassword"]/following-sibling::span'
     pass_strength_message = '.password-strength-check'
     empty_space = '.password-help-text-container small'
     employee_name_filter_dropdown = '.angucomplete-title'
@@ -73,10 +72,6 @@ class PopUp:
 
     def input_in_pass_field(self,text):
         self.step.input_text(self.password_field, text)
-
-    def get_pass_field_length_message(self):
-        self.step.specified_element_is_present(self.pass_length_message)
-        return self.step.get_element_text(self.pass_length_message)
 
     def get_pass_strength_message(self):
         self.step.specified_element_is_present(self.pass_strength_message, 30)
