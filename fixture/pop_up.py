@@ -5,8 +5,6 @@ from selenium.webdriver.remote.webdriver import WebDriver
 
 
 class PopUp:
-    user_name_field = '#user_name'
-    employee_name_field = '#selectedEmployee_value'
     password_field = '#password'
     confirm_password_field = '#confirmpassword'
     save_button = '#modal-save-button'
@@ -33,7 +31,7 @@ class PopUp:
     status_dropdown = '#status_inputfileddiv li'
     filter_reset_button = '//div[@class="modal modal-fixed-footer open"]//a[text()="Reset"]'
     filter_cancel_button = '//div[@class="modal modal-fixed-footer open"]//a[text()="Cancel"]'
-
+    searching_text = '//div[@id="employee_name_filter_dropdown"]/div[text()="Searching..."]'
 
 
     def __init__(self, step: StepHelper, wd: WebDriver):
@@ -41,12 +39,16 @@ class PopUp:
         self.wd = wd
 
     def set_username(self, text):
-        self.step.input_text(self.user_name_field, text)
+        self.step.input_text(self.user_name_filter_field, text)
 
-    def set_employee_name(self, text):
-        self.step.input_text(self.employee_name_field, text)
+    def set_employee_name_filter(self, text):
+        self.step.input_text(self.employee_name_filter_field, text)
+        self.step.specified_element_is_not_present(self.searching_text, 6)
+        if self.step.specified_element_is_present(self.employee_name_filter_dropdown_warnings, 3) == False:
+            self.step.click_element_containing_text(self.employee_name_filter_dropdown, text)
 
     def set_password(self, text):
+        self.step.click_on_element(self.password_field)
         self.step.input_text(self.password_field, text)
 
     def set_confirm_password(self, text):
@@ -95,8 +97,6 @@ class PopUp:
     def click_on_employee_name_filter(self):
         self.step.specified_element_is_present(self.employee_name_filter_field, 20)
         self.step.click_on_element(self.employee_name_filter_field)
-    def set_employee_name_filter(self, text):
-        self.step.input_text(self.employee_name_filter_field, text)
 
     def get_employee_name_dropdown_text(self):
         self.step.specified_element_is_present(self.employee_name_filter_dropdown, 10)
@@ -106,54 +106,44 @@ class PopUp:
         self.step.specified_element_is_present(self.employee_name_filter_dropdown_warnings, 10)
         return self.step.get_element_text(self.employee_name_filter_dropdown_warnings)
 
-    def click_on_ess_role_input_field(self):
-        self.step.click_on_element(self.ess_role_input_field)
-        time.sleep(0.5)
-
     def get_ess_role_dropdown_values(self):
         return self.step.get_elements_texts(self.ess_role_dropdown)
-
-    def click_on_admin_role_input_field(self):
-        self.step.click_on_element(self.admin_role_input_field)
-        time.sleep(0.5)
 
     def get_admin_role_dropdown_values(self):
         return self.step.get_elements_texts(self.admin_role_dropdown)
 
-    def click_on_supervisor_role_input_filed(self):
-        self.step.click_on_element(self.supervisor_role_input_field)
-        time.sleep(0.5)
-
     def get_supervisor_role_dropdown_values(self):
         return self.step.get_elements_texts(self.supervisor_role_dropdown)
 
-    def click_on_status_input_field(self):
-        self.step.click_on_element(self.status_input_field)
-        time.sleep(0.5)
-
     def get_status_dropdown_values(self):
         return self.step.get_elements_texts(self.status_dropdown)
-
-    def click_on_location_input_field(self):
-        self.step.click_on_element(self.location_input_field)
-        time.sleep(0.5)
 
     def get_location_dropdown_values(self):
         return self.step.get_elements_texts(self.location_dropdown)
 
     def set_ess_role_dropdown(self,text):
+        self.step.click_on_element(self.ess_role_input_field)
+        time.sleep(0.5)
         self.step.click_element_by_text(self.ess_role_dropdown,text)
 
     def set_admin_role_dropdown(self,text):
+        self.step.click_on_element(self.admin_role_input_field)
+        time.sleep(0.5)
         self.step.click_element_by_text(self.admin_role_dropdown,text)
 
     def set_supervisor_role_dropdown(self,text):
+        self.step.click_on_element(self.supervisor_role_input_field)
+        time.sleep(0.5)
         self.step.click_element_by_text(self.supervisor_role_dropdown,text)
 
     def set_status_dropdown(self,text):
+        self.step.click_on_element(self.status_input_field)
+        time.sleep(0.5)
         self.step.click_element_by_text(self.status_dropdown,text)
 
     def set_location_dropdown(self,text):
+        self.step.click_on_element(self.location_input_field)
+        time.sleep(0.5)
         self.step.click_element_by_text(self.location_dropdown,text)
 
     def click_on_filter_reset_button(self):
