@@ -156,7 +156,6 @@ class PopUp:
     def set_location_dropdown(self,text):
         self.step.click_element_by_text(self.location_dropdown,text)
 
-
     def click_on_filter_reset_button(self):
         self.step.click_on_element(self.filter_reset_button)
 

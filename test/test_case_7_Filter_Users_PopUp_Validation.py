@@ -20,8 +20,8 @@ def test_case_7_filter_users_popup_validation_autocomplete(app):
     app.orangeHrm.hrAdministration.click_filter_button()
     app.assert_that(app.orangeHrm.popUp.get_filter_table_name()).is_equal_to("Filter Users")
     app.orangeHrm.popUp.click_on_employee_name_filter()
-    app.orangeHrm.popUp.set_employee_name_filter("Brody")
-    app.assert_that(app.orangeHrm.popUp.get_employee_name_dropdown_text()).contains("Brody Alan")
+    app.orangeHrm.popUp.set_employee_name_filter("Mazie")
+    app.assert_that(app.orangeHrm.popUp.get_employee_name_dropdown_text()).contains('Mazie Abraham (Past Employee)', 'Mazie Abraham')
 
 # -----------------------------------------------------------------------------------
 
@@ -70,15 +70,15 @@ def test_case_7_2_filter_users_popup_validation_autocomplete(app):
     app.orangeHrm.sideMenu.click_on_side_menu_button('HR Administration')
     app.orangeHrm.hrAdministration.click_filter_button()
     app.assert_that(app.orangeHrm.popUp.get_filter_table_name()).is_equal_to("Filter Users")
-    app.orangeHrm.popUp.click_on_ess_role_input_field()
+    # app.orangeHrm.popUp.click_on_ess_role_input_field()
     app.assert_that(app.orangeHrm.popUp.get_ess_role_dropdown_values()).is_equal_to(['All','Default ESS'])
-    app.orangeHrm.popUp.click_on_admin_role_input_field()
+    # app.orangeHrm.popUp.click_on_admin_role_input_field()
     app.assert_that(app.orangeHrm.popUp.get_admin_role_dropdown_values()).is_equal_to(['All', 'Global Admin', 'Leave Admin', 'Regional HR Admin', 'Report Admin'])
-    app.orangeHrm.popUp.click_on_supervisor_role_input_filed()
+    # app.orangeHrm.popUp.click_on_supervisor_role_input_filed()
     app.assert_that(app.orangeHrm.popUp.get_supervisor_role_dropdown_values()).is_equal_to(['All', 'Default Supervisor'])
-    app.orangeHrm.popUp.click_on_status_input_field()
+    # app.orangeHrm.popUp.click_on_status_input_field()
     app.assert_that(app.orangeHrm.popUp.get_status_dropdown_values()).is_equal_to(['All', 'Enabled', 'Disabled'])
-    app.orangeHrm.popUp.click_on_location_input_field()
+    # app.orangeHrm.popUp.click_on_location_input_field()
     app.assert_that(app.orangeHrm.popUp.get_location_dropdown_values()).is_equal_to(['-- Select --', 'All', 'Australia', 'Australia office', 'Canada', 'Canadian Development Center', 'France', 'France Office', 'Germany', 'German Office', 'India', 'India Office', 'Jamaica', 'Jamaica training center', 'Mexico', 'Mexico Office', 'Philippines', 'Philippine call center', 'Singapore', 'Singapore Regional HQ', 'South Africa', 'South Africa Satellite Office', 'United Kingdom', 'UK Office', 'United States', 'US Office'])
 
 
