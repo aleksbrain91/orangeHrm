@@ -35,6 +35,18 @@ class StepHelper:
             return False
         return True
 
+    def wait_for_element(self, locator, wait_time=10):
+        # Waits for a specified element to be visible.
+        element = WebDriverWait(self.wd, wait_time).until(
+            EC.visibility_of_element_located((self.get_how(locator), locator)))
+        return element
+
+    def specified_element_is_not_present(self, locator, waitingTime=3):
+        # Waits to ensure a specified element is not present or becomes invisible.
+        time.sleep(1)
+        WebDriverWait(self.wd, waitingTime).until(
+            EC.invisibility_of_element_located((self.get_how(locator), locator)))
+
     def click_on_element(self, locator, pause_before_click=0.5, scrollInToView=False):
         # Clicks on a specified element, optionally scrolling into view and pausing before clicking.
         WebDriverWait(self.wd, 10).until(
@@ -83,18 +95,6 @@ class StepHelper:
             time.sleep(2)
         return element.get_attribute(attribute)
 
-    def specified_element_is_not_present(self, locator, waitingTime=3):
-        # Waits to ensure a specified element is not present or becomes invisible.
-        time.sleep(1)
-        WebDriverWait(self.wd, waitingTime).until(
-            EC.invisibility_of_element_located((self.get_how(locator), locator)))
-
-    def wait_for_element(self, locator, wait_time=10):
-        # Waits for a specified element to be visible.
-        element = WebDriverWait(self.wd, wait_time).until(
-            EC.visibility_of_element_located((self.get_how(locator), locator)))
-        return element
-
     def jsXpathClick(self, locator):
         # Performs a click on an element using JavaScript, specifically for XPATH locators.
         time.sleep(2)
@@ -122,7 +122,7 @@ class StepHelper:
         for element in elements:
             self.wd.execute_script(
                 "arguments[0].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });", element)
-            text = element.text.strip()
+            text = element.get_attribute("textContent").strip()
             texts.append(text)
         return texts
 
@@ -133,3 +133,24 @@ class StepHelper:
             if element.text == text:
                 element.click()
                 break
+
+    def click_element_containing_text(self, locator, text):
+        """Clicks on an element containing the specified text, case-insensitively."""
+        elements = self.get_list_of_elements(locator)
+        text_lower = text.lower()  # Convert the search text to lowercase for case-insensitive comparison
+        clicked = False
+
+        for element in elements:
+            element_text = element.text.lower()  # Convert each element's text to lowercase
+            if text_lower in element_text:
+                print(f"\nAttempting to click on element containing text: '{text}' with actual text: '{element.text}'")
+                try:
+                    element.click()
+                    clicked = True
+                    print("\nClick successful.")
+                    break  # Exit the loop after clicking
+                except Exception as e:
+                    print(f"Failed to click on the element. Error: {e}")
+
+        if not clicked:
+            print(f"No clickable element found containing text: '{text}'")
