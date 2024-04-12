@@ -154,3 +154,34 @@ class StepHelper:
 
         if not clicked:
             print(f"No clickable element found containing text: '{text}'")
+
+    def wait_for_attribute_change(self, locator, attribute, expected_value, time_wait=10, scrollInToView=False):
+        try:
+            element = WebDriverWait(self.wd, time_wait).until(
+                EC.visibility_of_element_located((self.get_how(locator), locator)))
+            if scrollInToView:
+                self.wd.execute_script(
+                    "arguments[0].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });", element)
+                time.sleep(2)
+            return element.get_attribute(attribute) == expected_value
+        except NoSuchElementException:
+            return False
+        except TimeoutException:
+            return False
+
+    # def wait_for_attribute_change(self, locator, attribute, expected_value, scrollInToView=False, time_wait=3):
+    #     try:
+    #         element = WebDriverWait(self.wd, time_wait).until(
+    #             lambda driver: driver.find_element(self.get_how(locator), locator).get_attribute(attribute) == expected_value)
+    #         if scrollInToView:
+    #             self.wd.execute_script(
+    #                 "arguments[0].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });", element)
+    #             time.sleep(2)
+    #         return True
+    #     except (NoSuchElementException, TimeoutException):
+    #         return False
+
+    # def wait_for_attribute_change(self, locator, attribute, expected_value, time_wait=3):
+    #     WebDriverWait(self.wd,time_wait).until(EC.attributeContains)
+    # boolean status = new WebDriverWait(driver, 20).until(ExpectedConditions.attributeContains(By.xpath("//div[@class='model-holder']/span[contains(.,'200K')]"), "class", "model-ready"));
+    # https://stackoverflow.com/questions/51257286/how-to-wait-for-a-element-to-contain-a-specific-attribute-through-selenium-and-w

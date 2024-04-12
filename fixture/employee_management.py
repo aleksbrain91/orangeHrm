@@ -1,5 +1,3 @@
-import time
-
 from fixture.step import StepHelper
 from selenium.webdriver.remote.webdriver import WebDriver
 
@@ -7,7 +5,7 @@ class EmployeeManagement:
     home_button = '//i[text()="oxd_home_menu"]'
     widget_header = '.widget-header span:last-child'
     widget_config_button = '.dashboard-widget-config-button'
-    widget_config_panel = '//span[@class="widget-configuration-panel active"]' #.widget-configuration-panel'
+    widget_config_panel =  '.widget-configuration-panel'   #'//span[@class="widget-configuration-panel active"]'
     my_widgets_button_inside_widget_panel = '//span[text()="My Widgets"]'
     widgets_names_inside_my_widgets = '.configuration-tab .oxd-switch-label'
     employee_management_loading_spinners = '//div[text()="Loading"]'
@@ -28,8 +26,8 @@ class EmployeeManagement:
         self.step.click_on_element(self.widget_config_button)
 
     def click_on_my_widgets_button_inside_widget_panel(self):
-        self.step.wait_for_element(self.widget_config_panel)
-        self.step.click_on_element(self.my_widgets_button_inside_widget_panel)
+        if self.step.wait_for_attribute_change(self.widget_config_panel, "class", "widget-configuration-panel active",10):
+            self.step.click_on_element(self.my_widgets_button_inside_widget_panel)
 
     def get_widgets_names_inside_my_widgets(self):
         return self.step.get_elements_texts(self.widgets_names_inside_my_widgets)

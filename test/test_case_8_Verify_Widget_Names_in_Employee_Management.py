@@ -11,6 +11,8 @@
 # 6. Verify that the list of retrieved widget names matches the expected list.
 # Expected Result:
 # The 'get_widget_names' method should return an accurate list of widget names that are present within the HR Management component.
+import time
+
 
 def test_case_8_verify_retrieval_of_widget_names_in_employee_management_component(app):
     app.orangeHrm.openUrl()
