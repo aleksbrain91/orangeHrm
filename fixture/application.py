@@ -4,7 +4,7 @@ from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from assertpy import assert_that
 
-
+from fixture.demonstration_app_demo_qa import DemonstrationAppDemoQa
 from fixture.orange_hrm import OrangeHrm
 from fixture.step import StepHelper
 from helpers.utils import Utils
@@ -27,6 +27,7 @@ class Application:
         self.assert_that = assert_that
         self.step = StepHelper(self)
         self.orangeHrm = OrangeHrm(self)
+        self.demonstrationAppDemoQa = DemonstrationAppDemoQa(self)
         self.utils = Utils(self)
 
     def destroy(self):
