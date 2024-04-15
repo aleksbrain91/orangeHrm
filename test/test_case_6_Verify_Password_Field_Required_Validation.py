@@ -124,6 +124,6 @@ def test_case_6_5_Verify_Password_Strength_Indicator_Strongest(app):
     app.orangeHrm.sideMenu.click_on_side_menu_button('HR Administration')
     app.orangeHrm.hrAdministration.click_add_user()
     app.orangeHrm.popUp.click_on_password_field()
-    app.orangeHrm.popUp.input_in_pass_field("Aa1!Nn2!Zz3!")
+    app.orangeHrm.popUp.input_in_pass_field("Aa1er!Nn2!Zz3!")
     app.orangeHrm.popUp.click_on_empty()
     app.assert_that(app.orangeHrm.popUp.get_pass_strength_message()).is_equal_to("Strongest")
