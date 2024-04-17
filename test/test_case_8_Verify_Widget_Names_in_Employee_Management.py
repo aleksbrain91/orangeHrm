@@ -41,7 +41,11 @@ def test_case_8_verify_retrieval_of_widget_names_in_employee_management_componen
 # 8. Verify that the list of retrieved widget names matches the expected list.
 # Expected Result:
 # The 'get_widget_names' method should return an accurate list of widget names from the side menu. Then assert it with the expected one.
-
+widgets_names_inside_my_widgets_list = sorted(['My Actions', 'Quick Access', 'Employees on Leave Today', 'Time At Work', 'Latest News', 'Latest Documents',
+         'Performance Quick Feedback', 'Buzz Latest Posts', "Current Year's Leave Taken by Department",
+         'Leave Taken on Each Calendar Month Over the Years', 'Leave Scheduled in Each Month',
+         'Leave Taken on Each Day of the Week Over Time', 'Headcount by Location',
+         'Annual Basic Payment by Location'])
 def test_case_8_1__verify_retrieval_of_widget_names_in_employee_management_component_inside_the_configuration(app):
     app.orangeHrm.openUrl()
     app.orangeHrm.login_to_the_application()
@@ -50,9 +54,4 @@ def test_case_8_1__verify_retrieval_of_widget_names_in_employee_management_compo
     app.orangeHrm.employeeManagement.click_on_home_button()
     app.orangeHrm.employeeManagement.click_on_widget_config_button()
     app.orangeHrm.employeeManagement.click_on_my_widgets_button_inside_widget_panel()
-    app.assert_that(app.orangeHrm.employeeManagement.get_widgets_names_inside_my_widgets().sort()).is_equal_to(
-        ['My Actions', 'Quick Access', 'Employees on Leave Today', 'Time At Work', 'Latest News', 'Latest Documents',
-         'Performance Quick Feedback', 'Buzz Latest Posts', "Current Year's Leave Taken by Department",
-         'Leave Taken on Each Calendar Month Over the Years', 'Leave Scheduled in Each Month',
-         'Leave Taken on Each Day of the Week Over Time', 'Headcount by Location',
-         'Annual Basic Payment by Location'].sort())
+    app.assert_that(sorted(app.orangeHrm.employeeManagement.get_widgets_names_inside_my_widgets())).is_equal_to(widgets_names_inside_my_widgets_list)
