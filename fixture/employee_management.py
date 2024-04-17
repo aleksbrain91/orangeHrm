@@ -11,6 +11,8 @@ class EmployeeManagement:
     widgets_names_inside_my_widgets = '.configuration-tab .oxd-switch-label'
     employee_management_loading_spinners = '//div[text()="Loading"]'
     employee_table_first_row = '#employeeListTable tbody tr:nth-child(1)'
+    filter_button = "//i[text()='oxd_filter']"
+    employee_management_table_loading_spinner = '#loading-bar .bar .peg'
 
 
     def __init__(self, step: StepHelper, wd: WebDriver):
@@ -21,7 +23,8 @@ class EmployeeManagement:
                            column_selectors={'employee_id': 'td:nth-child(2)',
                                              'name': 'td:nth-child(3) a',
                                              'job_title': 'td:nth-child(4)',
-                                             'employment_status': 'td:nth-child(5)'})
+                                             'employment_status': 'td:nth-child(5)',
+                                             'locations': 'td:nth-child(8)'})
 
 
     def click_on_home_button(self):
@@ -41,7 +44,8 @@ class EmployeeManagement:
     def get_widgets_names_inside_my_widgets(self):
         return self.step.get_elements_texts(self.widgets_names_inside_my_widgets)
 
-    def wait_for_the_table(self):
-        self.step.wait_for_element(self.employee_table_first_row, 30)
+    def click_on_filter_button(self):
+        self.step.click_on_element(self.filter_button)
 
-
+    def wait_for_table_reload(self):
+        self.step.specified_element_is_not_present(self.employee_management_table_loading_spinner, 10)

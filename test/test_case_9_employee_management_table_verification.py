@@ -1,3 +1,5 @@
+import time
+
 employee_id_column_list = sorted(
     ['0123', '1061', '1055', '0125', '1058', '1002', '1072', '1080', '1144', '1149', '1122', '1139', '1071', '0119',
      '1117', '1032', '1158', '1104', '1102', '1171', '1083', '1110', '1039', '1093', '1165', '0129', '1121', '201',
@@ -44,7 +46,7 @@ def test_case_9_employee_management_table_verification(app):
     app.orangeHrm.login_to_the_application()
     app.assert_that(app.orangeHrm.get_header_text()).is_equal_to('Employee Management')
     app.orangeHrm.sideMenu.click_on_side_menu_button("Employee Management")
-    app.orangeHrm.employeeManagement.wait_for_the_table()
+    app.orangeHrm.employeeManagement.wait_for_table_reload()
     app.assert_that(sorted(app.orangeHrm.employeeManagement.table.get_column_data('employee_id'))).is_equal_to(
         employee_id_column_list)
     app.assert_that(sorted(app.orangeHrm.employeeManagement.table.get_column_data('name'))).is_equal_to(
@@ -63,3 +65,74 @@ def test_case_9_employee_management_table_verification(app):
     # 4 Get second element from the 'Employee Id' column and assert it with the expected one.
     # 5 Get first element from the 'Name' column and assert it with the expected one.
     # 6 Get fifth element from the 'Employment Status' column and assert it with the expected one.
+expected_list_for_emp_status = ['Full-Time Contract', 'Full-Time Contract', 'Full-Time Contract', 'Full-Time Contract']
+expected_list_for_emp_locations = ['Canadian Development Center', 'Canadian Development Center', 'Canadian Development Center', 'Canadian Development Center']
+expected_list_for_emp_locations2 = ['Australia office', 'Australia office', 'Australia office', 'Australia office']
+def test_case_9_1_employee_management_table_filtering(app):
+    app.orangeHrm.openUrl()
+    app.orangeHrm.login_to_the_application()
+    app.assert_that(app.orangeHrm.get_header_text()).is_equal_to('Employee Management')
+    app.orangeHrm.sideMenu.click_on_side_menu_button("Employee Management")
+    app.orangeHrm.employeeManagement.wait_for_table_reload()
+    app.orangeHrm.employeeManagement.click_on_filter_button()
+    app.assert_that(app.orangeHrm.popUp.get_filter_employee_table_header()).is_equal_to("Filter Employees By")
+    app.orangeHrm.popUp.set_employee_filter_table_employment_status_dropdown("Full-Time Contract")
+    app.orangeHrm.popUp.set_employee_filter_table_location_dropdown("Canada")
+    app.orangeHrm.popUp.click_filter_search_button()
+    app.orangeHrm.employeeManagement.wait_for_table_reload()
+    app.assert_that(sorted(app.orangeHrm.employeeManagement.table.get_column_data('employment_status'))).is_equal_to(
+        expected_list_for_emp_status)
+    app.assert_that(sorted(app.orangeHrm.employeeManagement.table.get_column_data('locations'))).is_equal_to(
+        expected_list_for_emp_locations)
+
+
+    # TODO: Click on the filter button in the Employee Management section
+    # TODO: In the filter pop-up, set 'Employment Status' to 'Full-Time Contract'
+    # TODO: Set 'Location' to 'Canada'
+    # TODO: Click the search button
+    # TODO: Wait for the table to load (ensure the table is refreshed with the filter applied)
+    # TODO: Using the previously created table component, get list of users Names and Assert the list of users with the expected ones
+    # TODO: Get list of 'Employment Statuses' and assert it with the expected 'Full-Time Contract'
+    # TODO: Get list of 'Locations' for each listed user and assert it with the expected 'Canada'
+
+def test_case_9_2_employee_management_table_location_change(app):
+    app.orangeHrm.openUrl()
+    app.orangeHrm.login_to_the_application()
+    app.assert_that(app.orangeHrm.get_header_text()).is_equal_to('Employee Management')
+    app.orangeHrm.sideMenu.click_on_side_menu_button("Employee Management")
+    app.orangeHrm.employeeManagement.wait_for_table_reload()
+    app.orangeHrm.employeeManagement.click_on_filter_button()
+    app.assert_that(app.orangeHrm.popUp.get_filter_employee_table_header()).is_equal_to("Filter Employees By")
+    app.orangeHrm.popUp.set_employee_filter_table_employment_status_dropdown("Full-Time Contract")
+    app.orangeHrm.popUp.set_employee_filter_table_location_dropdown("Canada")
+    app.orangeHrm.popUp.click_filter_search_button()
+    app.orangeHrm.employeeManagement.wait_for_table_reload()
+    app.assert_that(sorted(app.orangeHrm.employeeManagement.table.get_column_data('employment_status'))).is_equal_to(
+        expected_list_for_emp_status)
+    app.assert_that(sorted(app.orangeHrm.employeeManagement.table.get_column_data('locations'))).is_equal_to(
+        expected_list_for_emp_locations)
+    app.orangeHrm.employeeManagement.click_on_filter_button()
+    app.orangeHrm.popUp.set_employee_filter_table_location_dropdown("Australia")
+    app.orangeHrm.popUp.click_filter_search_button()
+    app.orangeHrm.employeeManagement.wait_for_table_reload()
+    app.assert_that(sorted(app.orangeHrm.employeeManagement.table.get_column_data('employment_status'))).is_equal_to(
+        expected_list_for_emp_status)
+    app.assert_that(sorted(app.orangeHrm.employeeManagement.table.get_column_data('locations'))).is_equal_to(
+        expected_list_for_emp_locations2)
+
+    # TODO: Click on the filter button in the Employee Management section
+    # TODO: In the filter pop-up, set 'Employment Status' to 'Full-Time Contract'
+    # TODO: Set 'Location' to 'Canada'
+    # TODO: Click the search button
+    # TODO: Wait for the table to load (ensure the table is refreshed with the filter applied)
+    # TODO: Using the previously created table component, get list of users and Assert the list of users with the expected ones
+    # TODO: Get list of 'Employment Statuses' and assert it with the expected 'Full-Time Contract'
+    # TODO: Get list of 'Locations' for each listed user and assert it with the expected 'Canada'
+
+    # TODO: Click on the filter button again in the Employee Management section
+    # TODO: Change 'Location' to 'Australia'
+    # TODO: Click the search button
+    # TODO: Wait for the table to load (ensure the table is refreshed with the new location)
+    # TODO: Using the previously created table component, get list of users and Assert the list of users with the expected ones
+    # TODO: Get list of 'Employment Statuses' and assert it with the expected 'Full-Time Contract'
+    # TODO: Get list of 'Locations' for each listed user and assert it with the expected 'Australia'

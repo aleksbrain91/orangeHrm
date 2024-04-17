@@ -32,7 +32,11 @@ class PopUp:
     filter_reset_button = '//div[@class="modal modal-fixed-footer open"]//a[text()="Reset"]'
     filter_cancel_button = '//div[@class="modal modal-fixed-footer open"]//a[text()="Cancel"]'
     searching_text = '//div[@id="employee_name_filter_dropdown"]/div[text()="Searching..."]'
-
+    filter_employee_table_header = "//h4[text()='Filter Employees By']"
+    employee_filter_table_location_input_field = '//label[text()="Location"]/preceding-sibling::div//input'
+    employee_filter_table_location_dropdowns = '//label[text()="Location"]/preceding-sibling::div//li/span'
+    employee_filter_table_employment_status_input_field = '//label[text()="Employment Status"]/preceding-sibling::div//input'
+    employee_filter_table_employment_status_dropdowns = '//label[text()="Employment Status"]/preceding-sibling::div//li/span'
 
     def __init__(self, step: StepHelper, wd: WebDriver):
         self.step = step
@@ -172,3 +176,17 @@ class PopUp:
 
     def click_on_filter_cancel_button(self):
         self.step.click_on_element(self.filter_cancel_button)
+
+    def get_filter_employee_table_header(self):
+        self.step.click_on_element(self.filter_employee_table_header)
+        return self.step.get_element_text(self.filter_employee_table_header)
+
+    def set_employee_filter_table_location_dropdown(self,text):
+        self.step.click_on_element(self.employee_filter_table_location_input_field, True, True)
+        time.sleep(0.5)
+        self.step.click_element_containing_text(self.employee_filter_table_location_dropdowns,text)
+
+    def set_employee_filter_table_employment_status_dropdown(self,text):
+        self.step.click_on_element(self.employee_filter_table_employment_status_input_field)
+        time.sleep(0.5)
+        self.step.click_element_by_text(self.employee_filter_table_employment_status_dropdowns,text,True)
