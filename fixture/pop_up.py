@@ -75,7 +75,7 @@ class PopUp:
     def get_confirm_pass_required_message(self):
         return self.step.get_element_text(self.confirm_pass_required_message)
 
-    def input_in_pass_field(self,text):
+    def input_in_pass_field(self, text):
         self.step.input_text(self.password_field, text)
 
     def get_pass_strength_message(self):
@@ -124,39 +124,39 @@ class PopUp:
     def get_location_dropdown_values(self):
         return self.step.get_elements_texts(self.location_dropdown)
 
-    def set_ess_role_dropdown(self,text):
+    def set_ess_role_dropdown(self, text):
         self.step.click_on_element(self.ess_role_input_field)
         time.sleep(0.5)
-        self.step.click_element_by_text(self.ess_role_dropdown,text)
+        self.step.click_element_by_text(self.ess_role_dropdown, text)
 
-    def set_admin_role_dropdown(self,text):
+    def set_admin_role_dropdown(self, text):
         self.step.click_on_element(self.admin_role_input_field)
         time.sleep(0.5)
-        self.step.click_element_by_text(self.admin_role_dropdown,text)
+        self.step.click_element_by_text(self.admin_role_dropdown, text)
 
-    def set_supervisor_role_dropdown(self,text):
+    def set_supervisor_role_dropdown(self, text):
         self.step.click_on_element(self.supervisor_role_input_field)
         time.sleep(0.5)
-        self.step.click_element_by_text(self.supervisor_role_dropdown,text)
+        self.step.click_element_by_text(self.supervisor_role_dropdown, text)
 
-    def set_status_dropdown(self,text):
+    def set_status_dropdown(self, text):
         self.step.click_on_element(self.status_input_field)
         time.sleep(0.5)
-        self.step.click_element_by_text(self.status_dropdown,text)
+        self.step.click_element_by_text(self.status_dropdown, text)
 
-    def set_location_dropdown(self,text):
+    def set_location_dropdown(self, text):
         self.step.click_on_element(self.location_input_field)
         time.sleep(0.5)
-        self.step.click_element_by_text(self.location_dropdown,text)
+        self.step.click_element_by_text(self.location_dropdown, text)
 
     def click_on_filter_reset_button(self):
         self.step.click_on_element(self.filter_reset_button)
 
     def get_value_from_user_name_filter_field(self):
-        return self.step.get_element_attribute_value(self.user_name_filter_field,"class")
+        return self.step.get_element_attribute_value(self.user_name_filter_field, "class")
 
     def get_value_from_employee_name_filter_field(self):
-        return self.step.get_element_attribute_value(self.employee_name_filter_field,"class")
+        return self.step.get_element_attribute_value(self.employee_name_filter_field, "class")
 
     def get_value_from_ess_role_input_field(self):
         return self.step.get_element_attribute_value(self.ess_role_input_field, "value")
@@ -180,12 +180,12 @@ class PopUp:
         self.step.wait_for_element(self.employee_filter_table_header)
         return self.step.get_element_text(self.employee_filter_table_header)
 
-    def set_employee_filter_table_location_dropdown(self,text):
+    def set_employee_filter_table_location_dropdown(self, text):
         self.step.click_on_element(self.employee_filter_location_input_field, True, True)
         time.sleep(0.5)
-        self.step.click_element_containing_text(self.employee_filter_list_of_drop_down_values,text)
+        self.step.click_element_containing_text(self.employee_filter_list_of_drop_down_values, text)
 
-    def set_employee_filter_table_employment_status_dropdown(self,text):
-        self.step.click_on_element(self.employee_filter_employment_status_input_field,True)
+    def set_employee_filter_table_employment_status_dropdown(self, text):
+        self.step.click_on_element(self.employee_filter_employment_status_input_field, True)
         time.sleep(0.5)
-        self.step.click_element_by_text(self.employee_filter_list_of_drop_down_values,text)
+        self.step.click_element_by_text(self.employee_filter_list_of_drop_down_values, text)

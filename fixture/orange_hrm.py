@@ -57,4 +57,3 @@ class OrangeHrm:
 
     def get_header_text(self):
         return self.step.get_element_text(self.header)
-

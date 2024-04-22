@@ -4,6 +4,7 @@ from selenium.webdriver.remote.webelement import WebElement
 
 from fixture.step import StepHelper
 
+
 class Table:
     def __init__(self, step: StepHelper, row_selector: str, column_selectors: Dict[str, str]):
         self.step = step
