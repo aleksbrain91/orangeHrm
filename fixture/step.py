@@ -184,10 +184,6 @@ class StepHelper:
     #     except (NoSuchElementException, TimeoutException):
     #         return False
 
-    # def wait_for_attribute_change(self, locator, attribute, expected_value, time_wait=3):
-    #     WebDriverWait(self.wd,time_wait).until(EC.attributeContains)
-    # boolean status = new WebDriverWait(driver, 20).until(ExpectedConditions.attributeContains(By.xpath("//div[@class='model-holder']/span[contains(.,'200K')]"), "class", "model-ready"));
-    # https://stackoverflow.com/questions/51257286/how-to-wait-for-a-element-to-contain-a-specific-attribute-through-selenium-and-w
     def scroll_element_into_center(self, locator):
         element = WebDriverWait(self.wd, 10).until(
             EC.visibility_of_element_located((self.get_how(locator), locator)))

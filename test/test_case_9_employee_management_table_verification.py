@@ -52,13 +52,13 @@ def test_case_9_1_employee_management_table_filtering(app):
 
 
     #  Click on the filter button in the Employee Management section
-    # TODO: In the filter pop-up, set 'Employment Status' to 'Full-Time Contract'
-    # TODO: Set 'Location' to 'Canada'
-    # TODO: Click the search button
-    # TODO: Wait for the table to load (ensure the table is refreshed with the filter applied)
-    # TODO: Using the previously created table component, get list of users Names and Assert the list of users with the expected ones
-    # TODO: Get list of 'Employment Statuses' and assert it with the expected 'Full-Time Contract'
-    # TODO: Get list of 'Locations' for each listed user and assert it with the expected 'Canada'
+    #  In the filter pop-up, set 'Employment Status' to 'Full-Time Contract'
+    #  Set 'Location' to 'Canada'
+    #  Click the search button
+    #  Wait for the table to load (ensure the table is refreshed with the filter applied)
+    #  Using the previously created table component, get list of users Names and Assert the list of users with the expected ones
+    #  Get list of 'Employment Statuses' and assert it with the expected 'Full-Time Contract'
+    #  Get list of 'Locations' for each listed user and assert it with the expected 'Canada'
 
 def test_case_9_2_employee_management_table_location_change(app):
     app.orangeHrm.openUrl()
@@ -85,19 +85,19 @@ def test_case_9_2_employee_management_table_location_change(app):
     app.assert_that(sorted(app.orangeHrm.employeeManagement.table.get_column_data('locations'))).is_equal_to(
         sorted(expected_list_for_emp_locations2))
 
-    # TODO: Click on the filter button in the Employee Management section
-    # TODO: In the filter pop-up, set 'Employment Status' to 'Full-Time Contract'
-    # TODO: Set 'Location' to 'Canada'
-    # TODO: Click the search button
-    # TODO: Wait for the table to load (ensure the table is refreshed with the filter applied)
-    # TODO: Using the previously created table component, get list of users and Assert the list of users with the expected ones
-    # TODO: Get list of 'Employment Statuses' and assert it with the expected 'Full-Time Contract'
-    # TODO: Get list of 'Locations' for each listed user and assert it with the expected 'Canada'
+    #  Click on the filter button in the Employee Management section
+    #  In the filter pop-up, set 'Employment Status' to 'Full-Time Contract'
+    #  Set 'Location' to 'Canada'
+    #  Click the search button
+    #  Wait for the table to load (ensure the table is refreshed with the filter applied)
+    #  Using the previously created table component, get list of users and Assert the list of users with the expected ones
+    #  Get list of 'Employment Statuses' and assert it with the expected 'Full-Time Contract'
+    #  Get list of 'Locations' for each listed user and assert it with the expected 'Canada'
 
-    # TODO: Click on the filter button again in the Employee Management section
-    # TODO: Change 'Location' to 'Australia'
-    # TODO: Click the search button
-    # TODO: Wait for the table to load (ensure the table is refreshed with the new location)
-    # TODO: Using the previously created table component, get list of users and Assert the list of users with the expected ones
-    # TODO: Get list of 'Employment Statuses' and assert it with the expected 'Full-Time Contract'
-    # TODO: Get list of 'Locations' for each listed user and assert it with the expected 'Australia'
+    #  Click on the filter button again in the Employee Management section
+    #  Change 'Location' to 'Australia'
+    #  Click the search button
+    #  Wait for the table to load (ensure the table is refreshed with the new location)
+    #  Using the previously created table component, get list of users and Assert the list of users with the expected ones
+    #  Get list of 'Employment Statuses' and assert it with the expected 'Full-Time Contract'
+    #  Get list of 'Locations' for each listed user and assert it with the expected 'Australia'
