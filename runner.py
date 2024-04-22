@@ -23,15 +23,20 @@ def generate_allure_report():
     report_dir = os.path.join(base_dir, "allure-report")
     subprocess.call([ALLURE_COMMAND_PATH, 'generate', results_dir, '-o', report_dir, '--clean'])
 
-def run_tests_and_generate_report(test_dir='test/', headless=False, parallel=False, group=None, test_name=None):
+def run_tests_and_generate_report(headless=False, parallel=False, group=None, test_name=None):
     base_dir = os.path.abspath(os.path.dirname(__file__))
     results_dir = os.path.join(base_dir, "allure-results")
     clear_directory(results_dir)
     clear_directory(os.path.join(base_dir, "allure-report"))
 
-    pytest_cmd = ['pytest', test_dir]  # Directly use the test directory
+    pytest_cmd = ['pytest']
     if test_name:
-        pytest_cmd.append(test_name)  # Appends specific test or test file within the specified folder
+        # Use only test_name which should include the full path to the test
+        pytest_cmd.append(test_name)
+    else:
+        # Use the default test directory if no specific test is specified
+        pytest_cmd.append('test/')
+
     if headless:
         pytest_cmd.append('--headless')
     if parallel:
@@ -53,7 +58,6 @@ if __name__ == '__main__':
     parallel = '--parallel' in sys.argv
     group = None
     test_name = None
-    test_dir = 'test/'  # Default directory
 
     # Enhanced parsing for group, test parameters, and test directory
     for arg in sys.argv[2:]:  # start checking after the command
@@ -61,12 +65,10 @@ if __name__ == '__main__':
             group = arg.split('=')[1]
         elif arg.startswith('--test='):
             test_name = arg.split('=')[1]
-        elif arg.startswith('--test-dir='):
-            test_dir = arg.split('=')[1]
 
     if command == 'openReport':
         open_allure_report()
     elif command == 'testHeadless':
-        run_tests_and_generate_report(test_dir, headless=True, parallel=parallel, group=group, test_name=test_name)
+        run_tests_and_generate_report(headless=True, parallel=parallel, group=group, test_name=test_name)
     elif command == 'testNormal':
-        run_tests_and_generate_report(test_dir, headless=False, parallel=parallel, group=group, test_name=test_name)
+        run_tests_and_generate_report(headless=False, parallel=parallel, group=group, test_name=test_name)
