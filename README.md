@@ -48,29 +48,49 @@ Set up run configurations in PyCharm to easily run tests and open reports:
 
 Besides using PyCharm configurations, you can run tests directly from the console:
 
-### Run All Tests
+# Running Tests with `runner.py`
 
+## Basic Usage
+
+**Run tests in normal mode:**
 ```bash
 python runner.py testNormal
 ```
 
-### Run All Tests in Headless Mode
-
+**Run tests in headless mode:**
 ```bash
 python runner.py testHeadless
 ```
 
-### Open Allure Report
+## Parallel Execution
 
+**Run tests in parallel:**
 ```bash
-python runner.py openReport
+python runner.py testNormal --parallel
+python runner.py testHeadless --parallel
 ```
 
-### Run Specific test by name
-
+**Run tests in parallel, filtering by specific groups:**
 ```bash
-python runner.py --test=test/test_case_1_Login_to_the_application.py --headless
+python runner.py testNormal --parallel --group=group1
+python runner.py testHeadless --parallel --group=group1
 ```
+
+## Running Specific Tests
+
+**Run a specific test file in normal mode:**
 ```bash
-python runner.py --test=test/test_case_1_Login_to_the_application.py
+python runner.py testNormal --test=test/test_case_1_Login_to_the_application.py
+```
+
+**Run a specific test file in headless mode:**
+```bash
+python runner.py testHeadless --test=test/test_case_1_Login_to_the_application.py
+```
+
+## Additional Information
+
+- The `--parallel` flag enables parallel execution across multiple instances. If combined with the `--group` flag, only tests marked with the specified group will be executed. Without the `--group` flag, all applicable tests will be executed in parallel.
+- The `--test` flag allows for running a specific test. When this flag is used, the specified test file is executed independently of other tests, regardless of the group marking within the file.
+- When tests from one file are executed in parallel, they will share the same browser instance. If you need to run multiple tests from the same file in separate browser instances, you may need to split the tests across different files or manually control their execution.
 ```

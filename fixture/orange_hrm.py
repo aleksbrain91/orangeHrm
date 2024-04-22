@@ -57,3 +57,7 @@ class OrangeHrm:
 
     def get_header_text(self):
         return self.step.get_element_text(self.header)
+
+    def open_application_and_login(self):
+        # add login logic here
+        self.app.assert_that(self.app.orangeHrm.get_header_text()).is_equal_to('Employee Management')

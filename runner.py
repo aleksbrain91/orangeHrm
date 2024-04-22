@@ -23,43 +23,50 @@ def generate_allure_report():
     report_dir = os.path.join(base_dir, "allure-report")
     subprocess.call([ALLURE_COMMAND_PATH, 'generate', results_dir, '-o', report_dir, '--clean'])
 
-def run_tests_and_generate_report(test_name=None, headless=False):
+def run_tests_and_generate_report(test_dir='test/', headless=False, parallel=False, group=None, test_name=None):
     base_dir = os.path.abspath(os.path.dirname(__file__))
     results_dir = os.path.join(base_dir, "allure-results")
     clear_directory(results_dir)
     clear_directory(os.path.join(base_dir, "allure-report"))
 
-    pytest_cmd = ['pytest']
+    pytest_cmd = ['pytest', test_dir]  # Directly use the test directory
     if test_name:
-        pytest_cmd.append(test_name)
-    pytest_cmd.append(f'--alluredir={results_dir}')
+        pytest_cmd.append(test_name)  # Appends specific test or test file within the specified folder
     if headless:
         pytest_cmd.append('--headless')
+    if parallel:
+        pytest_cmd += ['-n3', '--dist=loadscope']
+    if group:
+        pytest_cmd.append(f'-m {group}')
+    if not test_name:
+        pytest_cmd.append('--alluredir=allure-results')
+    pytest_cmd.append('-v')  # Add verbose output
 
+    print("Executing command:", ' '.join(pytest_cmd))
     subprocess.call(pytest_cmd)
-    generate_allure_report()
-
+    if not test_name:
+        generate_allure_report()
 
 if __name__ == '__main__':
-    if len(sys.argv) > 1:
-        command = sys.argv[1]
-        if command == 'openReport':
-            open_allure_report()
-        elif command == 'testHeadless':
-            run_tests_and_generate_report(headless=True)
-        elif command == 'testNormal':
-            run_tests_and_generate_report(headless=False)
-        elif command.startswith('--'):
-            # Additional parsing for --test and --headless flags
-            test_name = None
-            headless = False
-            for arg in sys.argv[1:]:  # Skip the script name
-                if arg.startswith('--test='):
-                    test_name = arg.split('=')[1]
-                elif arg == '--headless':
-                    headless = True
-            run_tests_and_generate_report(test_name=test_name, headless=headless)
-        else:
-            print(f"Unknown command: {command}")
-    else:
-        print("No command provided.")
+    command = sys.argv[1] if len(sys.argv) > 1 else None
+    headless = '--headless' in sys.argv
+    parallel = '--parallel' in sys.argv
+    group = None
+    test_name = None
+    test_dir = 'test/'  # Default directory
+
+    # Enhanced parsing for group, test parameters, and test directory
+    for arg in sys.argv[2:]:  # start checking after the command
+        if arg.startswith('--group='):
+            group = arg.split('=')[1]
+        elif arg.startswith('--test='):
+            test_name = arg.split('=')[1]
+        elif arg.startswith('--test-dir='):
+            test_dir = arg.split('=')[1]
+
+    if command == 'openReport':
+        open_allure_report()
+    elif command == 'testHeadless':
+        run_tests_and_generate_report(test_dir, headless=True, parallel=parallel, group=group, test_name=test_name)
+    elif command == 'testNormal':
+        run_tests_and_generate_report(test_dir, headless=False, parallel=parallel, group=group, test_name=test_name)
