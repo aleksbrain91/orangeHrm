@@ -10,6 +10,8 @@ class PopUp:
     save_button = '#modal-save-button'
     user_exists_error_massage = "//span[text()='Already exists']"
     user_name_filter_field = '#systemuser_uname_filter'
+    user_name_add_user = '#user_name'
+    employee_name_add_user = '#selectedEmployee_value'
     employee_name_filter_field = '#employee_name_filter_value'
     filter_popup_table = '//div[@class="modal modal-fixed-footer open"]//h4[text()="Filter Users"]'
     filter_search_button = '//div[@class="modal modal-fixed-footer open"]//a[text()="Search"]'
@@ -42,7 +44,12 @@ class PopUp:
         self.wd = wd
 
     def set_username(self, text):
-        self.step.input_text(self.user_name_filter_field, text)
+        self.step.click_on_element(self.user_name_add_user)
+        self.step.input_text(self.user_name_add_user, text)
+
+    def set_employee_name(self,text):
+        self.step.click_on_element(self.employee_name_add_user)
+        self.step.input_text(self.employee_name_add_user, text)
 
     def set_employee_name_filter(self, text):
         self.step.input_text(self.employee_name_filter_field, text)
@@ -90,12 +97,11 @@ class PopUp:
         self.step.input_text(self.user_name_filter_field, text)
 
     def get_filter_table_name(self):
-        self.step.specified_element_is_present(self.filter_popup_table, 20)
+        self.step.wait_for_element(self.filter_popup_table, 20)
         return self.step.get_element_text(self.filter_popup_table)
 
     def click_filter_search_button(self):
         self.step.click_on_element(self.filter_search_button)
-        self.step.specified_element_is_not_present(self.filter_popup_table)
 
     def click_on_employee_name_filter(self):
         self.step.specified_element_is_present(self.employee_name_filter_field, 20)
@@ -186,6 +192,22 @@ class PopUp:
         self.step.click_element_containing_text(self.employee_filter_list_of_drop_down_values, text)
 
     def set_employee_filter_table_employment_status_dropdown(self, text):
-        self.step.click_on_element(self.employee_filter_employment_status_input_field, True)
+        self.step.click_on_element(self.employee_filter_employment_status_input_field, True, True)
         time.sleep(0.5)
-        self.step.click_element_by_text(self.employee_filter_list_of_drop_down_values, text)
+        self.step.click_element_by_text(self.employee_filter_list_of_drop_down_values, text, True)
+
+    def set_hr_administration_drop_downs(self, user_name=None, employee_name=None, ess_role=None, admin_role=None, supervisor_role=None, status=None, location=None):
+        if user_name is not None:
+            self.set_user_name_filter(user_name)
+        if employee_name is not None:
+            self.set_employee_name_filter(employee_name)
+        if ess_role is not None:
+            self.set_ess_role_dropdown(ess_role)
+        if admin_role is not None:
+            self.set_admin_role_dropdown(admin_role)
+        if supervisor_role is not None:
+            self.set_supervisor_role_dropdown(supervisor_role)
+        if status is not None:
+            self.set_status_dropdown(status)
+        if location is not None:
+            self.set_location_dropdown(location)

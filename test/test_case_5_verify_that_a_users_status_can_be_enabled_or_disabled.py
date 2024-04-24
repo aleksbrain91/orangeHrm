@@ -7,10 +7,12 @@
 # Expected Result:
 # The system should filter out and display empty list of users.
 # The Message: 'No Records Found' should be displayed.
+import pytest
+
+
+@pytest.mark.group1
 def test_case_5_verify_that_a_users_status_can_be_enabled_or_disabled(app):
-    app.orangeHrm.openUrl()
-    app.orangeHrm.login_to_the_application()
-    app.assert_that(app.orangeHrm.get_header_text()).is_equal_to('Employee Management')
+    app.orangeHrm.open_application_and_login()
     app.orangeHrm.sideMenu.click_on_side_menu_button('HR Administration')
     app.orangeHrm.hrAdministration.click_filter_button()
     app.assert_that(app.orangeHrm.popUp.get_filter_table_name()).is_equal_to("Filter Users")

@@ -9,13 +9,12 @@
 # 5. Start typing a known employee name in the 'Employee Name' field.
 # Expected Result:
 # As the user types, an autocomplete dropdown should appear with employee name suggestions.
-import time
+import pytest
 
 
+@pytest.mark.group2
 def test_case_7_filter_users_popup_validation_autocomplete(app):
-    app.orangeHrm.openUrl()
-    app.orangeHrm.login_to_the_application()
-    app.assert_that(app.orangeHrm.get_header_text()).is_equal_to('Employee Management')
+    app.orangeHrm.open_application_and_login()
     app.orangeHrm.sideMenu.click_on_side_menu_button('HR Administration')
     app.orangeHrm.hrAdministration.click_filter_button()
     app.assert_that(app.orangeHrm.popUp.get_filter_table_name()).is_equal_to("Filter Users")
@@ -35,11 +34,10 @@ def test_case_7_filter_users_popup_validation_autocomplete(app):
 # 5. Enter a non-existing employee name in the 'Employee Name' field.
 # Expected Result:
 # A message indicating 'no results found' should appear if no employee names match the entered value.
+@pytest.mark.group2
 
 def test_case_7_1_filter_users_popup_validation_autocomplete(app):
-    app.orangeHrm.openUrl()
-    app.orangeHrm.login_to_the_application()
-    app.assert_that(app.orangeHrm.get_header_text()).is_equal_to('Employee Management')
+    app.orangeHrm.open_application_and_login()
     app.orangeHrm.sideMenu.click_on_side_menu_button('HR Administration')
     app.orangeHrm.hrAdministration.click_filter_button()
     app.assert_that(app.orangeHrm.popUp.get_filter_table_name()).is_equal_to("Filter Users")
@@ -60,11 +58,9 @@ def test_case_7_1_filter_users_popup_validation_autocomplete(app):
 # 6. Assert values from all drop-downs in test (you should assert values separately for each drop-down) using assert_that(['a','b']).is_equal_to(['a','b'])
 # Expected Result:
 # All dropdowns in the 'Filter Users' pop-up should display their default values.
-
+@pytest.mark.group2
 def test_case_7_2_filter_users_popup_validation_autocomplete(app):
-    app.orangeHrm.openUrl()
-    app.orangeHrm.login_to_the_application()
-    app.assert_that(app.orangeHrm.get_header_text()).is_equal_to('Employee Management')
+    app.orangeHrm.open_application_and_login()
     app.orangeHrm.sideMenu.click_on_side_menu_button('HR Administration')
     app.orangeHrm.hrAdministration.click_filter_button()
     app.assert_that(app.orangeHrm.popUp.get_filter_table_name()).is_equal_to("Filter Users")
@@ -90,21 +86,13 @@ def test_case_7_2_filter_users_popup_validation_autocomplete(app):
 # 7. Reopen the 'Filter Users' pop-up by clicking on the 'Filter' button.
 # Expected Result:
 # The 'Filter Users' pop-up should close upon clicking the 'Reset' button and upon reopening, all input fields and dropdowns should be reset to their default selections.
-
+@pytest.mark.group2
 def test_case_7_3_filter_users_popup_validation_autocomplete(app):
-    app.orangeHrm.openUrl()
-    app.orangeHrm.login_to_the_application()
-    app.assert_that(app.orangeHrm.get_header_text()).is_equal_to('Employee Management')
+    app.orangeHrm.open_application_and_login()
     app.orangeHrm.sideMenu.click_on_side_menu_button('HR Administration')
     app.orangeHrm.hrAdministration.click_filter_button()
     app.assert_that(app.orangeHrm.popUp.get_filter_table_name()).is_equal_to("Filter Users")
-    app.orangeHrm.popUp.set_user_name_filter("Admin")
-    app.orangeHrm.popUp.set_employee_name_filter("employee")
-    app.orangeHrm.popUp.set_ess_role_dropdown("Default ESS")
-    app.orangeHrm.popUp.set_admin_role_dropdown("Leave Admin")
-    app.orangeHrm.popUp.set_supervisor_role_dropdown("Default Supervisor")
-    app.orangeHrm.popUp.set_status_dropdown("Disabled")
-    app.orangeHrm.popUp.set_location_dropdown("Australia office")
+    app.orangeHrm.popUp.set_hr_administration_drop_downs(user_name="Admin", employee_name="employee", ess_role="Default ESS", admin_role="Leave Admin", supervisor_role="Default Supervisor", status="Disabled", location="Australia office")
     app.orangeHrm.popUp.click_on_filter_reset_button()
     app.assert_that(app.orangeHrm.popUp.filter_popup_table).does_not_exist()
     app.orangeHrm.hrAdministration.click_filter_button()
@@ -133,11 +121,9 @@ def test_case_7_3_filter_users_popup_validation_autocomplete(app):
 # 7. Reopen the 'Filter Users' pop-up by clicking on the 'Filter' button.
 # Expected Result:
 # The 'Filter Users' pop-up should close upon clicking the 'Cancel' button and upon reopening, the previously selected values should be retained.
-
+@pytest.mark.group2
 def test_case_7_4_filter_users_popup_validation_autocomplete(app):
-    app.orangeHrm.openUrl()
-    app.orangeHrm.login_to_the_application()
-    app.assert_that(app.orangeHrm.get_header_text()).is_equal_to('Employee Management')
+    app.orangeHrm.open_application_and_login()
     app.orangeHrm.sideMenu.click_on_side_menu_button('HR Administration')
     app.orangeHrm.hrAdministration.click_filter_button()
     app.assert_that(app.orangeHrm.popUp.get_filter_table_name()).is_equal_to("Filter Users")

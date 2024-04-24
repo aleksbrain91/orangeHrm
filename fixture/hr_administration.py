@@ -1,3 +1,5 @@
+import time
+
 from fixture.step import StepHelper
 from selenium.webdriver.remote.webdriver import WebDriver
 
@@ -32,12 +34,13 @@ class HrAdministration:
         self.step.wait_for_element(self.save_button)
 
     def click_filter_button(self):
-        self.step.specified_element_is_present(self.filtered_usernames,30)
+        self.step.wait_for_element(self.first_table_row,40)
         self.step.click_on_element(self.filter_users_button)
 
     def get_filtered_usernames(self):
-        self.step.wait_for_element(self.filtered_usernames)
-        return self.step.get_elements_texts(self.filtered_usernames)
+        self.step.specified_element_is_not_present(self.filter_popup_table)
+        time.sleep(3)
+        return self.step.get_element_text(self.filtered_usernames)
 
     def get_filtered_user_roles(self):
         self.step.wait_for_element(self.filtered_user_roles)

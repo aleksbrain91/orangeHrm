@@ -12,11 +12,12 @@
 # An error message stating 'Required' should appear under both 'Password' and 'Confirm Password' fields.
 import time
 
+import pytest
 
+
+@pytest.mark.group2
 def test_case_6_Verify_Password_Field_Required_Validation(app):
-    app.orangeHrm.openUrl()
-    app.orangeHrm.login_to_the_application()
-    app.assert_that(app.orangeHrm.get_header_text()).is_equal_to('Employee Management')
+    app.orangeHrm.open_application_and_login()
     app.orangeHrm.sideMenu.click_on_side_menu_button('HR Administration')
     app.orangeHrm.hrAdministration.click_add_user()
     app.orangeHrm.popUp.click_on_password_field()
@@ -35,10 +36,9 @@ def test_case_6_Verify_Password_Field_Required_Validation(app):
 # 3. Click outside the password field to trigger validation.
 # Expected Result:
 # An error message stating 'Your password must have at least 8 characters.' should appear under the 'Password' field.
+@pytest.mark.group2
 def test_case_6_1_Verify_Password_Minimum_Length_Validation(app):
-    app.orangeHrm.openUrl()
-    app.orangeHrm.login_to_the_application()
-    app.assert_that(app.orangeHrm.get_header_text()).is_equal_to('Employee Management')
+    app.orangeHrm.open_application_and_login()
     app.orangeHrm.sideMenu.click_on_side_menu_button('HR Administration')
     app.orangeHrm.hrAdministration.click_add_user()
     app.orangeHrm.popUp.click_on_password_field()
@@ -57,10 +57,9 @@ def test_case_6_1_Verify_Password_Minimum_Length_Validation(app):
 # 3. Observe the password strength indicator.
 # Expected Result:
 # The password strength indicator should display a 'Very Weak' message.
+@pytest.mark.group2
 def test_case_6_2_Verify_Password_Strength_Indicator_Very_Weak(app):
-    app.orangeHrm.openUrl()
-    app.orangeHrm.login_to_the_application()
-    app.assert_that(app.orangeHrm.get_header_text()).is_equal_to('Employee Management')
+    app.orangeHrm.open_application_and_login()
     app.orangeHrm.sideMenu.click_on_side_menu_button('HR Administration')
     app.orangeHrm.hrAdministration.click_add_user()
     app.orangeHrm.popUp.click_on_password_field()
@@ -77,10 +76,9 @@ def test_case_6_2_Verify_Password_Strength_Indicator_Very_Weak(app):
 # 3. Observe the password strength indicator.
 # Expected Result:
 # The password strength indicator should display a 'Weak' message.
+@pytest.mark.group2
 def test_case_6_3_Verify_Password_Strength_Indicator_Weak(app):
-    app.orangeHrm.openUrl()
-    app.orangeHrm.login_to_the_application()
-    app.assert_that(app.orangeHrm.get_header_text()).is_equal_to('Employee Management')
+    app.orangeHrm.open_application_and_login()
     app.orangeHrm.sideMenu.click_on_side_menu_button('HR Administration')
     app.orangeHrm.hrAdministration.click_add_user()
     app.orangeHrm.popUp.click_on_password_field()
@@ -97,10 +95,9 @@ def test_case_6_3_Verify_Password_Strength_Indicator_Weak(app):
 # 3. Observe the password strength indicator.
 # Expected Result:
 # The password strength indicator should display a 'Better' message.
+@pytest.mark.group2
 def test_case_6_4_Verify_Password_Strength_Indicator_Better(app):
-    app.orangeHrm.openUrl()
-    app.orangeHrm.login_to_the_application()
-    app.assert_that(app.orangeHrm.get_header_text()).is_equal_to('Employee Management')
+    app.orangeHrm.open_application_and_login()
     app.orangeHrm.sideMenu.click_on_side_menu_button('HR Administration')
     app.orangeHrm.hrAdministration.click_add_user()
     app.orangeHrm.popUp.click_on_password_field()
@@ -117,13 +114,12 @@ def test_case_6_4_Verify_Password_Strength_Indicator_Better(app):
 # 3. Observe the password strength indicator.
 # Expected Result:
 # The password strength indicator should display a 'Strongest' message.
+@pytest.mark.group2
 def test_case_6_5_Verify_Password_Strength_Indicator_Strongest(app):
-    app.orangeHrm.openUrl()
-    app.orangeHrm.login_to_the_application()
-    app.assert_that(app.orangeHrm.get_header_text()).is_equal_to('Employee Management')
+    app.orangeHrm.open_application_and_login()
     app.orangeHrm.sideMenu.click_on_side_menu_button('HR Administration')
     app.orangeHrm.hrAdministration.click_add_user()
     app.orangeHrm.popUp.click_on_password_field()
-    app.orangeHrm.popUp.input_in_pass_field("Aa1er!Nn2!Zz3!")
+    app.orangeHrm.popUp.input_in_pass_field("Aa1erasd2#B.!Nn2!Zz3!")
     app.orangeHrm.popUp.click_on_empty()
     app.assert_that(app.orangeHrm.popUp.get_pass_strength_message()).is_equal_to("Strongest")
