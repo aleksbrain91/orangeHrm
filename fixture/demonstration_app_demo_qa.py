@@ -5,6 +5,7 @@ from selenium.webdriver.common.by import By
 
 from fixture.step import StepHelper
 
+
 class DemonstrationAppDemoQa:
     parent_element_of_sub_menu = '//div[@class="element-list collapse show"]/../span'
     opened_sub_menu = 'div[class="element-list collapse show"]'
@@ -18,6 +19,8 @@ class DemonstrationAppDemoQa:
     dragabble_header = '//h1[text()="Dragabble"]'
     select_one_dropdown = "div[id='selectOne'] div[class*='menu'] div[id^='react-select'][class*='option']"
     select_one_input = '#selectOne'
+    home_button = '#simpleLink'
+    home_banner_img = '.home-banner img'
 
     def __init__(self, app):
         self.app = app
@@ -72,3 +75,14 @@ class DemonstrationAppDemoQa:
         self.step.scroll_element_into_center(self.file_upload_input)
         file_input = self.wd.find_element(By.CSS_SELECTOR, self.file_upload_input)
         file_input.send_keys(file_path)
+
+    def click_home_button(self):
+        self.step.scroll_element_into_center(self.home_button)
+        self.step.click_on_element(self.home_button)
+
+    def get_page_banner(self):
+        self.step.wait_for_element(self.home_banner_img, 10)
+        return self.step.get_element_attribute_value(self.home_banner_img, "alt")
+
+    def verify_home_page(self):
+        return self.wd.current_url == "https://demoqa.com/"
