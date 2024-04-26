@@ -27,7 +27,7 @@ class Application:
         # chrome_options.add_argument("user-agent='Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.113 Safari/537.36'")
 
         self.wd = webdriver.Chrome(service=service, options=chrome_options)
-        # self.wd.set_window_size(1920, 1080)  # Optionally setting window size; consider if necessary
+        self.wd.set_window_size(1036, 651)  # Optionally setting window size; consider if necessary
 
         # Setup other components
         self.assert_that = assert_that
