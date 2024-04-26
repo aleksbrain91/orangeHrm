@@ -1,11 +1,11 @@
 # Test case 10 - verify folders creation functionality
-# TODO: Open the application
-# TODO: Login
-# TODO: Click on Reports and Analytics
-# TODO: Click on New Folder
-# TODO: Fill in the folder name
-# TODO: Click Save
-# TODO: Verify that New Folder appeared in the list of folders
+# Open the application
+# Login
+# Click on Reports and Analytics
+# Click on New Folder
+# Fill in the folder name
+# Click Save
+# Verify that New Folder appeared in the list of folders
 
 from helpers.utils import Utils
 
@@ -18,6 +18,11 @@ def test_case_10_verify_folders_creation_functionality(app):
     app.orangeHrm.reportsAnalytics.click_on_new_folder_button()
     app.orangeHrm.popUpreportsAnalytics.input_new_folder_name(random_name)
     app.orangeHrm.popUpreportsAnalytics.click_on_save_button()
-    app.assert_that(app.orangeHrm.reportsAnalytics.get_succcess_meassage_text()).contains("Successfully Saved")
+    app.assert_that(app.orangeHrm.reportsAnalytics.get_manipulation_meassage_text()).is_equal_to("Successfully Saved")
     app.orangeHrm.reportsAnalytics.wait_for_page_loading()
     app.assert_that(app.orangeHrm.reportsAnalytics.get_folder_names_list()).contains(random_name)
+    # print(random_name)
+    app.orangeHrm.reportsAnalytics.find_and_click_delete_button_for_folder(random_name)
+    app.orangeHrm.reportsAnalytics.confirm_folder_deleting()
+    app.assert_that(app.orangeHrm.reportsAnalytics.get_manipulation_meassage_text()).is_equal_to("Successfully Deleted")
+    app.assert_that(app.orangeHrm.reportsAnalytics.get_folder_names_list()).does_not_contain(random_name)

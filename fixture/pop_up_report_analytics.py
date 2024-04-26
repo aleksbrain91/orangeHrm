@@ -17,5 +17,3 @@ class PopUpReportAnalytics:
 
     def click_on_save_button(self):
         self.step.click_on_element(self.save_button, True)
-
-
