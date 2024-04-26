@@ -43,9 +43,8 @@ def run_tests_and_generate_report(headless=False, parallel=False, group=None, te
         pytest_cmd += ['-n3', '--dist=loadscope']
     if group:
         pytest_cmd.append(f'-m {group}')
-    if not test_name:
-        pytest_cmd.append('--alluredir=allure-results')
-    pytest_cmd.append('-v')  # Add verbose output
+    pytest_cmd.append('--alluredir=allure-results')
+    # pytest_cmd.append('-v')  # Add verbose output
 
     print("Executing command:", ' '.join(pytest_cmd))
     subprocess.call(pytest_cmd)
@@ -59,8 +58,8 @@ if __name__ == '__main__':
     group = None
     test_name = None
 
-    # Enhanced parsing for group, test parameters, and test directory
-    for arg in sys.argv[2:]:  # start checking after the command
+    # Further parsing for group, test, or other parameters
+    for arg in sys.argv[2:]:
         if arg.startswith('--group='):
             group = arg.split('=')[1]
         elif arg.startswith('--test='):

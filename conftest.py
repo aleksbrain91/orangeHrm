@@ -2,7 +2,7 @@ import os
 import pytest
 import allure
 from allure_commons.types import AttachmentType
-from fixture.application import Application# Adjust the import as necessary for your project structure
+from fixture.application import Application  # Ensure the import path is correct
 import subprocess
 
 # Define the base directory for reports relative to this file's location
@@ -17,11 +17,8 @@ def pytest_addoption(parser):
 @pytest.fixture(scope="function")
 def app(request):
     headless = request.config.getoption("--headless")
-    fixture = Application(headless=headless)  # Ensure your Application class supports headless mode
-    def fin():
-        fixture.destroy()
-    request.addfinalizer(fin)
-    return fixture
+    with Application(headless=headless) as app_instance:
+        yield app_instance  # Provides the Application instance to the test
 
 @pytest.hookimpl(tryfirst=True, hookwrapper=True)
 def pytest_runtest_makereport(item, call):
@@ -29,23 +26,20 @@ def pytest_runtest_makereport(item, call):
     outcome = yield
     report = outcome.get_result()
     if report.when == "call" and report.failed:
-        if "app" in item.fixturenames:
-            app = item.funcargs["app"]
-            take_screenshot(app, report.nodeid)
+        app_instance = item.funcargs.get("app")
+        if app_instance:
+            take_screenshot(app_instance, report.nodeid)
 
 def take_screenshot(app, nodeid):
     """Take a screenshot using the app's WebDriver and attach it to the Allure report."""
-    screenshot_directory = os.path.join(base_dir, "allure-results", "screenshots")
+    screenshot_directory = os.path.join(results_dir, "screenshots")
     if not os.path.exists(screenshot_directory):
         os.makedirs(screenshot_directory)
-    # Normalize nodeid to create a valid filename
     filename = nodeid.replace("::", "_").replace("/", "_") + ".png"
     screenshot_file_path = os.path.join(screenshot_directory, filename)
     app.wd.save_screenshot(screenshot_file_path)
     if os.path.exists(screenshot_file_path):
         allure.attach.file(screenshot_file_path, name="Screenshot on failure", attachment_type=AttachmentType.PNG)
-    else:
-        print(f"Failed to capture screenshot: {screenshot_file_path}")
 
 def pytest_sessionfinish(session, exitstatus):
     """Generate Allure report at the end of the test session if --allure-report was specified."""

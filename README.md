@@ -93,4 +93,16 @@ python runner.py testHeadless --test=test/test_case_1_Login_to_the_application.p
 - The `--parallel` flag enables parallel execution across multiple instances. If combined with the `--group` flag, only tests marked with the specified group will be executed. Without the `--group` flag, all applicable tests will be executed in parallel.
 - The `--test` flag allows for running a specific test. When this flag is used, the specified test file is executed independently of other tests, regardless of the group marking within the file.
 - When tests from one file are executed in parallel, they will share the same browser instance. If you need to run multiple tests from the same file in separate browser instances, you may need to split the tests across different files or manually control their execution.
-```
+
+## Logging Levels
+
+In pytest, the logging levels are typically the same as those defined in the Python `logging` module. Here's a list of the standard logging levels in increasing order of severity:
+
+1. **DEBUG**: Detailed information, typically of interest only when diagnosing problems.
+2. **INFO**: Confirmation that things are working as expected.
+3. **WARNING**: An indication that something unexpected happened, or indicative of some problem in the near future (e.g., 'disk space low'). The software is still working as expected.
+4. **ERROR**: Due to a more serious problem, the software has not been able to perform some function.
+5. **CRITICAL**: A serious error, indicating that the program itself may be unable to continue running.
+
+Pytest uses these levels for logging output, and you can configure your pytest logging to control the verbosity of output during test execution.
+
