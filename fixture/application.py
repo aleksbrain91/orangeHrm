@@ -21,8 +21,9 @@ class Application:
         if headless:
             chrome_options.add_argument("--headless")
         chrome_options.add_argument("--disable-dev-shm-usage")
-        chrome_options.add_argument("--no-sandbox")
+        # chrome_options.add_argument("--no-sandbox")
         chrome_options.add_argument("--disable-notifications")
+        chrome_options.add_argument("--log-level=3")
         # User agent can be customized as needed, but default Chrome user agent is usually sufficient
         # chrome_options.add_argument("user-agent='Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.113 Safari/537.36'")
 

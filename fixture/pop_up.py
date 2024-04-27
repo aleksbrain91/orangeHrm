@@ -86,7 +86,8 @@ class PopUp:
         self.step.input_text(self.password_field, text)
 
     def get_pass_strength_message(self):
-        self.step.specified_element_is_present(self.pass_strength_message, 30)
+        self.step.wait_for_element(self.pass_strength_message, 30)
+        time.sleep(0.5)
         return self.step.get_element_text(self.pass_strength_message)
 
     def click_on_user_name_filter(self):
