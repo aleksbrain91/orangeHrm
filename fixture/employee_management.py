@@ -1,3 +1,5 @@
+import time
+
 from fixture.step import StepHelper
 from selenium.webdriver.remote.webdriver import WebDriver
 from fixture.table import Table
@@ -10,7 +12,7 @@ class EmployeeManagement:
     widget_config_panel = '.widget-configuration-panel'   # '//span[@class="widget-configuration-panel active"]'
     my_widgets_button_inside_widget_panel = '//span[text()="My Widgets"]'
     widgets_names_inside_my_widgets = '.configuration-tab .oxd-switch-label'
-    employee_management_loading_spinners = '//div[text()="Loading"]'
+    # employee_management_loading_spinners = '//div[text()="Loading"]'
     employee_table_first_row = '#employeeListTable tbody tr:nth-child(1)'
     filter_button = "//i[text()='oxd_filter']"
     employee_management_table_loading_spinner = '#loading-bar .bar .peg'
@@ -33,7 +35,7 @@ class EmployeeManagement:
         return self.step.get_elements_texts(self.widget_header)
 
     def click_on_widget_config_button(self):
-        self.step.specified_element_is_not_present(self.employee_management_loading_spinners, 15)
+        self.step.specified_element_is_not_present(self.employee_management_table_loading_spinner, 15)
         self.step.click_on_element(self.widget_config_button)
 
     def click_on_my_widgets_button_inside_widget_panel(self):

@@ -172,18 +172,6 @@ class StepHelper:
         except TimeoutException:
             return False
 
-    # def wait_for_attribute_change(self, locator, attribute, expected_value, scrollInToView=False, time_wait=3):
-    #     try:
-    #         element = WebDriverWait(self.wd, time_wait).until(
-    #             lambda driver: driver.find_element(self.get_how(locator), locator).get_attribute(attribute) == expected_value)
-    #         if scrollInToView:
-    #             self.wd.execute_script(
-    #                 "arguments[0].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });", element)
-    #             time.sleep(2)
-    #         return True
-    #     except (NoSuchElementException, TimeoutException):
-    #         return False
-
     def scroll_element_into_center(self, locator):
         element = WebDriverWait(self.wd, 10).until(
             EC.visibility_of_element_located((self.get_how(locator), locator)))
