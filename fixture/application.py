@@ -7,7 +7,7 @@ from assertpy import assert_that
 from fixture.demonstration_app_demo_qa import DemonstrationAppDemoQa
 from fixture.orange_hrm import OrangeHrm
 from fixture.step import StepHelper
-# from helpers.utils import Utils
+from helpers.utils import Utils
 
 
 class Application:
@@ -35,7 +35,7 @@ class Application:
         self.step = StepHelper(self)
         self.orangeHrm = OrangeHrm(self)
         self.demonstrationAppDemoQa = DemonstrationAppDemoQa(self)
-        # self.utils = Utils(self)
+        self.utils = Utils()
 
     def destroy(self):
         # Ensure the web driver quits properly

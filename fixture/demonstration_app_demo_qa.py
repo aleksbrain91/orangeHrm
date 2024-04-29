@@ -66,6 +66,12 @@ class DemonstrationAppDemoQa:
         self.step.click_on_element(self.select_one_input)
         self.step.click_element_by_text(self.select_one_dropdown, text, True)
 
+    def select_one_more_value_from_select_one_dropdown(self, text):
+        self.step.scroll_element_into_center(self.select_one_input)
+        self.step.click_on_element(self.select_one_input)
+        # self.step.click_on_element(self.select_one_input)
+        self.step.click_element_by_text(self.select_one_dropdown, text, True)
+
     def upload_file(self, file_path):
         self.step.scroll_element_into_center(self.file_upload_input)
         file_input = self.wd.find_element(By.CSS_SELECTOR, self.file_upload_input)
@@ -86,3 +92,6 @@ class DemonstrationAppDemoQa:
 
     def verify_home_page(self):
         return self.wd.current_url == "https://demoqa.com/"
+
+    def get_home_page_url(self):
+        return self.wd.current_url
