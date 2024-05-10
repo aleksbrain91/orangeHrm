@@ -43,10 +43,11 @@ class EmployeeManagement:
             self.step.click_on_element(self.my_widgets_button_inside_widget_panel)
 
     def get_widgets_names_inside_my_widgets(self):
+        self.step.wait_for_element(self.widgets_names_inside_my_widgets)
         return self.step.get_elements_texts(self.widgets_names_inside_my_widgets)
 
     def click_on_filter_button(self):
         self.step.click_on_element(self.filter_button)
 
     def wait_for_table_reload(self):
-        self.step.specified_element_is_not_present(self.employee_management_table_loading_spinner, 10)
+        self.step.specified_element_is_not_present(self.employee_management_table_loading_spinner, 30)

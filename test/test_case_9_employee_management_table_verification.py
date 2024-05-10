@@ -39,7 +39,7 @@ def test_case_9_1_employee_management_table_filtering(app):
     app.assert_that(app.orangeHrm.popUp.get_filter_employee_table_header()).is_equal_to("Filter Employees By")
     app.orangeHrm.popUp.set_employee_filter_table_employment_status_dropdown("Full-Time Contract")
     app.orangeHrm.popUp.set_employee_filter_table_location_dropdown("Canada")
-    app.orangeHrm.popUp.click_filter_search_button()
+    app.orangeHrm.popUp.click_on_filter_search_button()
     app.orangeHrm.employeeManagement.wait_for_table_reload()
     app.assert_that(sorted(app.orangeHrm.employeeManagement.table.get_column_data('employment_status'))).is_equal_to(
         sorted(expected_list_for_emp_status))
@@ -65,7 +65,7 @@ def test_case_9_2_employee_management_table_location_change(app):
     app.assert_that(app.orangeHrm.popUp.get_filter_employee_table_header()).is_equal_to("Filter Employees By")
     app.orangeHrm.popUp.set_employee_filter_table_employment_status_dropdown("Full-Time Contract")
     app.orangeHrm.popUp.set_employee_filter_table_location_dropdown("Canada")
-    app.orangeHrm.popUp.click_filter_search_button()
+    app.orangeHrm.popUp.click_on_filter_search_button()
     app.orangeHrm.employeeManagement.wait_for_table_reload()
     app.assert_that(sorted(app.orangeHrm.employeeManagement.table.get_column_data('employment_status'))).is_equal_to(
         sorted(expected_list_for_emp_status))
@@ -73,7 +73,7 @@ def test_case_9_2_employee_management_table_location_change(app):
         sorted(expected_list_for_emp_locations))
     app.orangeHrm.employeeManagement.click_on_filter_button()
     app.orangeHrm.popUp.set_employee_filter_table_location_dropdown("Australia")
-    app.orangeHrm.popUp.click_filter_search_button()
+    app.orangeHrm.popUp.click_on_filter_search_button()
     app.orangeHrm.employeeManagement.wait_for_table_reload()
     app.assert_that(sorted(app.orangeHrm.employeeManagement.table.get_column_data('employment_status'))).is_equal_to(
         sorted(expected_list_for_emp_status))

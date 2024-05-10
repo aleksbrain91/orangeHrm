@@ -126,13 +126,17 @@ class StepHelper:
             texts.append(text)
         return texts
 
-    def click_element_by_text(self, locator, text, scrollInToView=False):
-        # Clicks on an element within a list that matches the specified text.
+    def click_element_by_text(self, locator, text, scrollIntoView=False, smartScroll=False):
         elements = self.get_list_of_elements(locator)
         for element in elements:
-            if element.text == text:
-                if scrollInToView:
-                    self.wd.execute_script("arguments[0].scrollIntoView({block: 'center'});", element)  # используем метод скроллинга, описанный выше
+            if smartScroll:
+                # Smart scrolling: scroll a little, then check if the element is visible
+                self.wd.execute_script("arguments[0].scrollIntoView({block: 'nearest'});", element)
+                time.sleep(0.5)
+            if element.text == text and element.is_displayed():
+                if scrollIntoView:
+                    self.wd.execute_script("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});",
+                                           element)
                     time.sleep(1)
                 element.click()
                 break
@@ -214,3 +218,10 @@ class StepHelper:
             if self.wd.current_url == full_url:
                 return
         self.wd.switch_to.window(current_window)
+
+    def switch_to_iframe(self, locator):
+        iframe_element = self.wait_for_element(locator)
+        self.wd.switch_to.frame(iframe_element)
+
+    def switch_to_default_content(self):
+        self.wd.switch_to.default_content()

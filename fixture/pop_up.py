@@ -14,7 +14,7 @@ class PopUp:
     employee_name_add_user = '#selectedEmployee_value'
     employee_name_filter_field = '#employee_name_filter_value'
     filter_popup_table = '//div[@class="modal modal-fixed-footer open"]//h4[text()="Filter Users"]'
-    filter_search_button = '//div[@class="modal modal-fixed-footer open"]//a[text()="Search"]'
+    filter_search_button = '//a[text()="Search"]'
     pass_required_message = '//input[@id="password"]/following-sibling::span'
     confirm_pass_required_message = '//input[@id="confirmpassword"]/following-sibling::span'
     pass_strength_message = '.password-strength-check'
@@ -42,6 +42,8 @@ class PopUp:
     def __init__(self, step: StepHelper, wd: WebDriver):
         self.step = step
         self.wd = wd
+        self.reportsAnalytics = ReportAnalytics(step, wd)
+        self.training_filter = TrainingFilter(step, wd)
 
     def set_username(self, text):
         self.step.click_on_element(self.user_name_add_user)
@@ -64,7 +66,7 @@ class PopUp:
     def set_confirm_password(self, text):
         self.step.input_text(self.confirm_password_field, text)
 
-    def click_on_save(self):
+    def click_on_save_button(self):
         self.step.click_on_element(self.save_button)
 
     def click_on_empty(self):
@@ -101,7 +103,7 @@ class PopUp:
         self.step.wait_for_element(self.filter_popup_table, 20)
         return self.step.get_element_text(self.filter_popup_table)
 
-    def click_filter_search_button(self):
+    def click_on_filter_search_button(self):
         self.step.click_on_element(self.filter_search_button)
 
     def click_on_employee_name_filter(self):
@@ -212,3 +214,46 @@ class PopUp:
             self.set_status_dropdown(status)
         if location is not None:
             self.set_location_dropdown(location)
+
+class ReportAnalytics:
+    add_folder_header = '//p[text()="Add Folder"]'
+    add_folder_input_field = 'input[placeholder="Enter Folder Name"]'
+    save_button = '//div[text()="Save"]'
+    folder_success_save_message = '//div[@class="oxd-toast-content oxd-toast-content--success"]/p'
+
+    def __init__(self, step: StepHelper, wd: WebDriver):
+        self.step = step
+        self.wd = wd
+
+    def input_new_folder_name(self, text):
+        self.step.wait_for_element(self.add_folder_header)
+        self.step.input_text(self.add_folder_input_field, text)
+
+    def click_on_save_button(self):
+        self.step.click_on_element(self.save_button, True)
+
+
+class TrainingFilter:
+    title_input_field = 'div[class="input-field row"] #searchCourse_title'
+    iframe = "#noncoreIframe"
+    filter_courses_header = '.customized-modal-header h5'
+    title_input_field_autocomplete_dropdowns = '.ac_results ul li'
+
+
+    def __init__(self, step: StepHelper, wd: WebDriver):
+        self.step = step
+        self.wd = wd
+
+    # def set_title(self, title):
+    #     self.step.switch_to_iframe(self.iframe)
+    #     self.step.input_text(self.title_input_field, title)
+    #     self.step.switch_to_default_content()
+
+    def get_filter_courses_header_text(self):
+        self.step.wait_for_element(self.filter_courses_header, 5)
+        return self.step.get_element_text(self.filter_courses_header)
+
+    def set_title(self, text):
+        self.step.input_text(self.title_input_field, text)
+        self.step.wait_for_element(self.title_input_field_autocomplete_dropdowns, 5)
+        self.step.click_element_containing_text(self.title_input_field_autocomplete_dropdowns, text)

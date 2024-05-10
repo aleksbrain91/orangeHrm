@@ -19,5 +19,5 @@ def test_case_3_verify_existing_user_can_not_be_created_again(app):
     app.orangeHrm.popUp.set_employee_name('Test')
     app.orangeHrm.popUp.set_password('test1234')
     app.orangeHrm.popUp.set_confirm_password('test1234')
-    app.orangeHrm.popUp.click_on_save()
+    app.orangeHrm.popUp.click_on_save_button()
     app.assert_that(app.orangeHrm.popUp.get_user_exist_error()).is_equal_to('Already exists')
