@@ -1,5 +1,7 @@
 import time
 
+from selenium.webdriver.common.by import By
+
 from fixture.step import StepHelper
 from selenium.webdriver.remote.webdriver import WebDriver
 
@@ -44,6 +46,7 @@ class PopUp:
         self.wd = wd
         self.reportsAnalytics = ReportAnalytics(step, wd)
         self.training_filter = TrainingFilter(step, wd)
+        self.recruitment_add_candidate = RecruitmentAddCandidate(step, wd)
 
     def set_username(self, text):
         self.step.click_on_element(self.user_name_add_user)
@@ -257,3 +260,34 @@ class TrainingFilter:
         self.step.input_text(self.title_input_field, text)
         self.step.wait_for_element(self.title_input_field_autocomplete_dropdowns, 5)
         self.step.click_element_containing_text(self.title_input_field_autocomplete_dropdowns, text)
+
+class RecruitmentAddCandidate:
+    loading_spinner = '.oxd-loading-spinner-container'
+    first_name_input_field = '#addCandidateForm_firstName'
+    last_name_input_field = '#addCandidateForm_lastName'
+    email_input_field = '#addCandidateForm_email'
+    upload_file = '#addCandidateForm_file'
+    save_button = '//button/div[text()="Save"]'
+
+    def __init__(self, step: StepHelper, wd: WebDriver):
+        self.step = step
+        self.wd = wd
+
+    def wait_for_add_candidate_window_loading(self):
+        self.step.specified_element_is_not_present(self.loading_spinner, 20)
+
+    def set_first_name(self, text):
+        self.step.input_text(self.first_name_input_field, text)
+
+    def set_last_name(self, text):
+        self.step.input_text(self.last_name_input_field, text)
+
+    def set_email(self, text):
+        self.step.input_text(self.email_input_field, text)
+
+    def upload_resume(self, file_path):
+        file_input = self.wd.find_element(By.CSS_SELECTOR, self.upload_file)
+        file_input.send_keys(file_path)
+
+    def click_on_save_button(self):
+        self.step.click_on_element(self.save_button)
