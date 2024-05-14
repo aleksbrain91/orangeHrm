@@ -1,22 +1,23 @@
 from helpers.api import Api
+from helpers.utils import Utils
 
 cand_1 = {
-    "first_name": "Fname1",
-    "last_name": "Lname1",
-    "date_applied": "2024-05-13",
-    "email": "1email@example.com"
+    "first_name": Utils.generate_random_string(8),
+    "last_name": Utils.generate_random_string(8),
+    "date_applied": Utils.generate_random_date(),
+    "email": Utils.generate_random_email(length=8)
 }
 cand_2 = {
-    "first_name": "Fname2",
-    "last_name": "Lname2",
-    "date_applied": "2024-04-13",
-    "email": "2email@example.com"
+    "first_name": Utils.generate_random_string(8),
+    "last_name": Utils.generate_random_string(8),
+    "date_applied": Utils.generate_random_date(),
+    "email": Utils.generate_random_email(length=8)
 }
 cand_3 = {
-    "first_name": "Fname3",
-    "last_name": "Lname3",
-    "date_applied": "2024-03-13",
-    "email": "3email@example.com"
+    "first_name": Utils.generate_random_string(8),
+    "last_name": Utils.generate_random_string(8),
+    "date_applied": Utils.generate_random_date(),
+    "email": Utils.generate_random_email(length=8)
 }
 
 def test_case_verify_candidate_1_in_recruitment_ats_section(app):
