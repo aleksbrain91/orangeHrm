@@ -20,7 +20,10 @@ class RecruitmentAts:
                            column_selectors={'checkbox': 'div[role="cell"]:nth-child(1)',
                                              'name': 'div[role="cell"]:nth-child(3) a',
                                              'vacancy': 'div[role="cell"]:nth-child(3) .oxd-table-cell-pill',
-                                             'email': 'div[role="cell"]:nth-child(4) div'})
+                                             'email': 'div[role="cell"]:nth-child(4) div',
+                                             'contact': 'div[role="cell"]:nth-child(5) div',
+                                             'date_applied': 'div[role="cell"]:nth-child(6) div',
+                                             'stage': 'div[role="cell"]:nth-child(7) div'})
 
     def wait_for_page_load(self):
         self.step.specified_element_is_not_present(self.page_loading_animation, 20)

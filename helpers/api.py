@@ -18,7 +18,7 @@ class Api:
         })
 
         login_page_url = 'https://admin_portnov-trials712.orangehrmlive.com/auth/login'
-        login_page_response = Api.session.get(login_page_url)
+        login_page_response = Api.session.get(login_page_url, verify=False)
         if login_page_response.status_code != 200:
             return None
 
@@ -37,7 +37,7 @@ class Api:
         login_response = Api.session.post(login_url, data=login_data)
         if login_response.status_code == 200:
             token_url = "https://admin_portnov-trials712.orangehrmlive.com/core/getLoggedInAccountToken"
-            token_response = Api.session.get(token_url)
+            token_response = Api.session.get(token_url, verify=False)
             if token_response.ok:
                 Api.access_token = token_response.json()['token']['access_token']
             else:
