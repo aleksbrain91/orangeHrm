@@ -30,12 +30,9 @@ class Training:
                                              'status': '#resultTable td:nth-child(6) a'})
 
     def click_on_filter_button(self):
-        # self.step.switch_to_iframe(self.iframe)
         self.step.click_on_element(self.filter_button)
-        # self.step.switch_to_default_content()
 
     def click_on_add_course_button(self):
-        self.step.switch_to_iframe(self.iframe)
         self.step.click_on_element(self.add_course_button)
 
     def wait_for_page_loading(self):
@@ -60,5 +57,5 @@ class Training:
     def click_on_go_to_courses_button(self):
         self.step.click_on_element(self.go_to_courses_button)
 
-    def wait_for_table_reload(self):
+    def wait_for_filtered_table(self):
         self.step.specified_element_is_not_present(self.table_filter_spinner,20)

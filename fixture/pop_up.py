@@ -240,17 +240,13 @@ class TrainingFilter:
     title_input_field = 'div[class="input-field row"] #searchCourse_title'
     iframe = "#noncoreIframe"
     filter_courses_header = '.customized-modal-header h5'
-    title_input_field_autocomplete_dropdowns = '.ac_results ul li'
+    input_fields_autocomplete_dropdowns = '.ac_results ul li'
+    coordinator_input_field = 'input[type="text"][name*="coordinator"]'
 
 
     def __init__(self, step: StepHelper, wd: WebDriver):
         self.step = step
         self.wd = wd
-
-    # def set_title(self, title):
-    #     self.step.switch_to_iframe(self.iframe)
-    #     self.step.input_text(self.title_input_field, title)
-    #     self.step.switch_to_default_content()
 
     def get_filter_courses_header_text(self):
         self.step.wait_for_element(self.filter_courses_header, 5)
@@ -258,8 +254,13 @@ class TrainingFilter:
 
     def set_title(self, text):
         self.step.input_text(self.title_input_field, text)
-        self.step.wait_for_element(self.title_input_field_autocomplete_dropdowns, 5)
-        self.step.click_element_containing_text(self.title_input_field_autocomplete_dropdowns, text)
+        self.step.wait_for_element(self.input_fields_autocomplete_dropdowns, 5)
+        self.step.click_element_containing_text(self.input_fields_autocomplete_dropdowns, text)
+
+    def set_coordinator(self, text):
+        self.step.input_text(self.coordinator_input_field, text)
+        self.step.wait_for_element(self.input_fields_autocomplete_dropdowns, 5)
+        self.step.click_element_containing_text(self.input_fields_autocomplete_dropdowns, text)
 
 class RecruitmentAddCandidate:
     loading_spinner = '.oxd-loading-spinner-container'

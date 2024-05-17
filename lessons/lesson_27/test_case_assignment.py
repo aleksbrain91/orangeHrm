@@ -18,6 +18,7 @@ def test_case_training_section_functionality(app):
     app.orangeHrm.open_application_and_login()
     app.orangeHrm.sideMenu.click_on_side_menu_button("Training")
     app.orangeHrm.training.wait_for_page_loading()
+    app.orangeHrm.step.switch_to_iframe(app.orangeHrm.training.iframe)
     app.orangeHrm.training.click_on_add_course_button()
     app.orangeHrm.training.wait_for_page_loading()
     app.orangeHrm.training.set_course_title(test_title)
@@ -30,7 +31,7 @@ def test_case_training_section_functionality(app):
     app.assert_that(app.orangeHrm.popUp.training_filter.get_filter_courses_header_text()).is_equal_to("Filter Courses")
     app.orangeHrm.popUp.training_filter.set_title(test_title)
     app.orangeHrm.popUp.click_on_filter_search_button()
-    app.orangeHrm.training.wait_for_table_reload()
+    app.orangeHrm.training.wait_for_filtered_table()
     app.assert_that(app.orangeHrm.training.table.get_column_data('title')).contains(test_title)
 
 

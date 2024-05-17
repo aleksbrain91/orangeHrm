@@ -1,0 +1,30 @@
+from helpers.utils import Utils
+
+
+new_tilte = Utils.generate_random_string(10)
+def test_case_12_add_course_and_verify_the_coordinator_in_training_section(app):
+    app.orangeHrm.open_application_and_login()
+    app.orangeHrm.sideMenu.click_on_side_menu_button("Training")
+    app.orangeHrm.training.wait_for_page_loading()
+    app.orangeHrm.step.switch_to_iframe(app.orangeHrm.training.iframe)
+    app.orangeHrm.training.click_on_filter_button()
+    app.assert_that(app.orangeHrm.popUp.training_filter.get_filter_courses_header_text()).is_equal_to("Filter Courses")
+    app.orangeHrm.popUp.training_filter.set_coordinator("Aaron Hamilton")
+    app.orangeHrm.popUp.click_on_filter_search_button()
+    app.orangeHrm.training.wait_for_filtered_table()
+    list_of_titles = app.orangeHrm.training.table.get_column_data('title')
+    app.orangeHrm.training.click_on_add_course_button()
+    app.orangeHrm.training.wait_for_page_loading()
+    app.orangeHrm.training.set_course_title(new_tilte)
+    app.orangeHrm.training.set_course_coordinator("Aaron Hamilton")
+    app.orangeHrm.training.click_on_save_button()
+    app.assert_that(app.orangeHrm.training.get_save_confirmation_message_text()).is_equal_to("Successfully Updated")
+    app.orangeHrm.training.click_on_go_to_courses_button()
+    app.orangeHrm.training.wait_for_page_loading()
+    app.orangeHrm.training.click_on_filter_button()
+    app.assert_that(app.orangeHrm.popUp.training_filter.get_filter_courses_header_text()).is_equal_to("Filter Courses")
+    app.orangeHrm.popUp.training_filter.set_coordinator("Aaron Hamilton")
+    app.orangeHrm.popUp.click_on_filter_search_button()
+    app.orangeHrm.training.wait_for_filtered_table()
+    new_list_of_titles = list_of_titles + [new_tilte]
+    app.assert_that(sorted(app.orangeHrm.training.table.get_column_data('title'))).is_equal_to(sorted(new_list_of_titles))
