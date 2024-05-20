@@ -47,6 +47,7 @@ class PopUp:
         self.reportsAnalytics = ReportAnalytics(step, wd)
         self.training_filter = TrainingFilter(step, wd)
         self.recruitment_add_candidate = RecruitmentAddCandidate(step, wd)
+        self.recruitment_filter = RecruitmentFilter(step, wd)
 
     def set_username(self, text):
         self.step.click_on_element(self.user_name_add_user)
@@ -292,3 +293,28 @@ class RecruitmentAddCandidate:
 
     def click_on_save_button(self):
         self.step.click_on_element(self.save_button)
+
+
+class RecruitmentFilter:
+    popup_header = '//h5[text()="Filter Candidates"]'
+    job_title_input_field = '#filterCandidateForm_jobTitleIds'
+    input_fields_searching_text = '//div[text()="Searching..."]'
+    input_fields_dropdowns = '.oxd-autocomplete-dropdown div span'
+    search_button = 'button[type="submit"]'
+
+    def __init__(self, step: StepHelper, wd: WebDriver):
+        self.step = step
+        self.wd = wd
+
+    def wait_for_window_to_appear(self):
+        self.step.wait_for_element(self.popup_header)
+
+    def set_job_title(self, text):
+        self.step.click_on_element(self.job_title_input_field, True)
+        self.step.input_text(self.job_title_input_field, text)
+        self.step.specified_element_is_not_present(self.input_fields_searching_text, 6)
+        if self.step.specified_element_is_present(self.input_fields_searching_text, 3) == False:
+            self.step.click_element_containing_text(self.input_fields_dropdowns, text)
+
+    def click_on_search_button(self):
+        self.step.click_on_element(self.search_button)

@@ -18,6 +18,7 @@ class RecruitmentAts:
     search_autocomplete_dropdowns = '.oxd-autocomplete-option span'
     download_button = 'button[tooltip="Export to CSV"]'
     progress_loading_bar = 'div[class="progress-bar-modal"]'
+    filter_button = 'button[tooltip="Filter Candidates"]'
 
     def __init__(self, step: StepHelper, wd: WebDriver):
         self.step = step
@@ -58,3 +59,6 @@ class RecruitmentAts:
         downloaded_files = os.listdir(download_path)
         if len(downloaded_files) == 0:
             raise Exception("No files were downloaded.")
+
+    def click_on_filter_button(self):
+        self.step.click_on_element(self.filter_button)
