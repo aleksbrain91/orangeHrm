@@ -48,7 +48,7 @@ class RecruitmentAts:
         self.step.specified_element_is_not_present(self.search_field_spinner, 15)
         self.step.click_element_containing_text(self.search_autocomplete_dropdowns, text)
 
-    def download_csv(self):
+    def export_to_csv(self):
         self.step.click_on_element(self.download_button)
         # Wait for the download to complete (you may need to adjust the sleep duration)
         self.step.specified_element_is_not_present(self.page_loading_animation, 20)
