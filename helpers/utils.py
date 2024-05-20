@@ -27,3 +27,14 @@ class Utils:
         random_days = random.randint(0, days_diff)
         random_date = start_date + timedelta(days=random_days)
         return random_date.strftime("%Y-%m-%d")
+
+    @staticmethod
+    def get_project_root():
+        return os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+
+    @staticmethod
+    def clear_download_directory():
+        download_path = os.path.join(Utils.get_project_root(), 'files', 'download')
+        if os.path.exists(download_path):
+            shutil.rmtree(download_path)
+        os.makedirs(download_path)

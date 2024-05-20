@@ -12,6 +12,8 @@ from helpers.utils import Utils
 
 class Application:
     def __init__(self, headless=False):
+        # Set the root directory of the project
+        project_root = Utils.get_project_root()
         # Set up ChromeDriver service to suppress logs by setting its output to dev/null
         log_path = os.path.devnull
         service = Service(log_path=log_path)
@@ -26,6 +28,16 @@ class Application:
         chrome_options.add_argument("--log-level=3")
         # User agent can be customized as needed, but default Chrome user agent is usually sufficient
         # chrome_options.add_argument("user-agent='Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.113 Safari/537.36'")
+
+        # Set up download directory
+        download_path = os.path.join(project_root, 'files', 'download')
+        prefs = {
+            "download.default_directory": download_path,
+            "download.prompt_for_download": False,
+            "download.directory_upgrade": True,
+            "safebrowsing.enabled": True
+        }
+        chrome_options.add_experimental_option("prefs", prefs)
 
         self.wd = webdriver.Chrome(service=service, options=chrome_options)
         self.wd.set_window_size(1036,800) #Optionally setting window size; consider if necessary
