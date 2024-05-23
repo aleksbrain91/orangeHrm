@@ -1,7 +1,7 @@
 import time
 
 from selenium.webdriver.common.by import By
-
+from fixture.calendar import Calendar, CalendarType
 from fixture.step import StepHelper
 from selenium.webdriver.remote.webdriver import WebDriver
 
@@ -48,6 +48,7 @@ class PopUp:
         self.training_filter = TrainingFilter(step, wd)
         self.recruitment_add_candidate = RecruitmentAddCandidate(step, wd)
         self.recruitment_filter = RecruitmentFilter(step, wd)
+        self.calendar = Calendar(self.step, CalendarType.OXD)
 
     def set_username(self, text):
         self.step.click_on_element(self.user_name_add_user)

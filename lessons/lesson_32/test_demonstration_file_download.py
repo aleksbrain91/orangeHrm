@@ -3,7 +3,7 @@ from helpers.csv_helper import CSVHelper
 from helpers.utils import Utils
 
 
-def test_demonstration_file_upload(app):
+def test_demonstration_file_download(app):
     Utils.clear_download_directory()
     app.orangeHrm.open_application_and_login()
     app.orangeHrm.sideMenu.click_on_side_menu_button("Recruitment (ATS)")
