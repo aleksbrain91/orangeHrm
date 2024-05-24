@@ -20,10 +20,10 @@ class Leave:
     def wait_for_page_load(self):
         self.step.specified_element_is_not_present(self.loading_spinner_bar, 10)
 
-    def click_from_calendar_button(self):
+    def click_on_from_calendar_button(self):
         self.step.click_on_element(self.from_calendar_button)
 
-    def click_to_calendar_button(self):
+    def click_on_to_calendar_button(self):
         self.step.click_on_element(self.to_calendar_button)
 
     def click_on_search_button(self):

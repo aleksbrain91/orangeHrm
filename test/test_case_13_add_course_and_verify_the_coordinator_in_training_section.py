@@ -2,7 +2,7 @@ from helpers.utils import Utils
 
 
 new_tilte = Utils.generate_random_string(10)
-def test_case_12_add_course_and_verify_the_coordinator_in_training_section(app):
+def test_case_13_add_course_and_verify_the_coordinator_in_training_section(app):
     app.orangeHrm.open_application_and_login()
     app.orangeHrm.sideMenu.click_on_side_menu_button("Training")
     app.orangeHrm.training.wait_for_page_loading()

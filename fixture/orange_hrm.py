@@ -9,7 +9,6 @@ from fixture.reports_analytics import ReportsAnalytics
 from fixture.side_menu import SideMenu
 from fixture.step import StepHelper
 from dotenv import load_dotenv
-
 from fixture.training import Training
 
 load_dotenv()

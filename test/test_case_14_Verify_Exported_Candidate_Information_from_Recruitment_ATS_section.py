@@ -11,7 +11,7 @@ from helpers.csv_helper import CSVHelper
 # Step 7: - Click on 'Export to CSV' button
 # Step 8: - Once CSV is exported, open it
 # Step 9: - Verify that information from the table in the application corresponds to information in the exported CSV file
-def test_case_13_verify_exported_candidate_information_from_recruitment_ats_section(app):
+def test_case_14_verify_exported_candidate_information_from_recruitment_ats_section(app):
     app.orangeHrm.open_application_and_login()
     app.orangeHrm.sideMenu.click_on_side_menu_button("Recruitment (ATS)")
     app.orangeHrm.recruitmentAts.wait_for_page_load()

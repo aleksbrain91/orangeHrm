@@ -1,3 +1,4 @@
+import time
 from enum import Enum
 
 class CalendarType(Enum):
@@ -13,23 +14,26 @@ class Calendar:
 
     def _set_selectors(self):
         if self._calendar_type == CalendarType.DEFAULT:
-            self._year_dropdown_trigger = '.picker__select--year'
-            self._year_options = 'ul.select-dropdown.active li span'
-            self._month_dropdown_trigger = '.picker__select--month'
-            self._month_options = 'ul.select-dropdown.active li span'
-            self._day_picker = '.picker__day'
+            self._parent_selector = '//div[@aria-hidden="false"]//div[contains(@class, "picker__holder")]'
+            self._year_dropdown_trigger = f'{self._parent_selector}//div[contains(@class, "picker__select--year")]/input'
+            self._year_options = f'{self._parent_selector}//ul[contains(@class, "select-dropdown") and contains(@class, "active")]/li/span'
+            self._month_dropdown_trigger = f'{self._parent_selector}//div[contains(@class, "picker__select--month")]/input'
+            self._month_options = f'{self._parent_selector}//ul[contains(@class, "select-dropdown") and contains(@class, "active")]/li/span'
+            self._day_picker = f'{self._parent_selector}//div[contains(@class, "picker__day")]'
         elif self._calendar_type == CalendarType.OXD:
-            self._year_dropdown_trigger = '.oxd-calendar-selector-year'
-            self._year_options = '.oxd-calendar-selector-year li'
-            self._month_dropdown_trigger = '.oxd-calendar-selector-month'
-            self._month_options = '.oxd-calendar-selector-month li'
-            self._day_picker = '.oxd-calendar-date'
+            self._parent_selector = '.oxd-calendar-wrapper'
+            self._year_dropdown_trigger = f'{self._parent_selector} .oxd-calendar-selector-year .oxd-calendar-selector-year-selected'
+            self._year_options = f'{self._parent_selector} .oxd-calendar-dropdown li'
+            self._month_dropdown_trigger = f'{self._parent_selector} .oxd-calendar-selector-month .oxd-calendar-selector-month-selected'
+            self._month_options = f'{self._parent_selector} .oxd-calendar-dropdown li'
+            self._day_picker = f'{self._parent_selector} .oxd-calendar-date'
         else:
             raise ValueError("Unknown calendar type")
 
     # Please use format 'mm-dd-yyyy'
     def set_date(self, date_str):
         month, day, year = date_str.split('-')
+        time.sleep(1)
         self._select_year(year)
         self._select_month(month)
         self._select_day(day)
@@ -49,7 +53,7 @@ class Calendar:
     # Protected method to select day
     def _select_day(self, day):
         if self._calendar_type == CalendarType.DEFAULT:
-            day_locator = f'//div[contains(@class, "picker__day") and text()="{int(day)}"]'
+            day_locator = f'{self._parent_selector}//div[contains(@class, "picker__day") and text()="{int(day)}"]'
             self._step.click_on_element(day_locator)
         elif self._calendar_type == CalendarType.OXD:
             day_locator = f'//div[contains(@class, "oxd-calendar-date") and text()="{int(day)}"]'

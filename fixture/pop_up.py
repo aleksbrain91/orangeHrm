@@ -302,6 +302,8 @@ class RecruitmentFilter:
     input_fields_searching_text = '//div[text()="Searching..."]'
     input_fields_dropdowns = '.oxd-autocomplete-dropdown div span'
     search_button = 'button[type="submit"]'
+    from_calendar_button = '(//div[@class="oxd-date-input-icon-wrapper"])[1]'
+    to_calendar_button = '(//div[@class="oxd-date-input-icon-wrapper"])[2]'
 
     def __init__(self, step: StepHelper, wd: WebDriver):
         self.step = step
@@ -319,3 +321,9 @@ class RecruitmentFilter:
 
     def click_on_search_button(self):
         self.step.click_on_element(self.search_button)
+
+    def click_on_from_calendar_button(self):
+        self.step.click_on_element(self.from_calendar_button)
+
+    def click_on_to_calendar_button(self):
+        self.step.click_on_element(self.to_calendar_button)
