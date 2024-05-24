@@ -308,7 +308,7 @@ class RecruitmentFilter:
     def __init__(self, step: StepHelper, wd: WebDriver):
         self.step = step
         self.wd = wd
-
+        self.calendar = Calendar(self.step, CalendarType.OXD)
     def wait_for_window_to_appear(self):
         self.step.wait_for_element(self.popup_header)
 
