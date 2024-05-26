@@ -1,5 +1,6 @@
 import os
 
+from fixture.attendance import Attendance
 from fixture.employee_management import EmployeeManagement
 from fixture.hr_administration import HrAdministration
 from fixture.leave import Leave
@@ -35,6 +36,7 @@ class OrangeHrm:
         self.training = Training(self.step, self.wd)
         self.recruitmentAts = RecruitmentAts(self.step, self.wd)
         self.leave = Leave(self.step, self.wd)
+        self.attendance = Attendance(self.step, self.wd)
 
     def openUrl(self, url = "https://admin_portnov-trials712.orangehrmlive.com"):
         self.wd.get(url)

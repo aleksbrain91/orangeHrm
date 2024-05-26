@@ -1,3 +1,4 @@
+import inspect
 import os
 import shutil
 import random
@@ -38,3 +39,19 @@ class Utils:
         if os.path.exists(download_path):
             shutil.rmtree(download_path)
         os.makedirs(download_path)
+
+    @staticmethod
+    def compare_lists_and_print(list1, list2):
+        set1 = set(list1)
+        set2 = set(list2)
+        only_in_list1 = set1 - set2
+        only_in_list2 = set2 - set1
+        common_items = set1 & set2
+        print("Items only in list1:", list(only_in_list1))
+        print("Items only in list2:", list(only_in_list2))
+        print("Common items:", list(common_items))
+        return {
+            "only_in_list1": list(only_in_list1),
+            "only_in_list2": list(only_in_list2),
+            "common_items": list(common_items)
+        }
