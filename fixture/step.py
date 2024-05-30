@@ -225,3 +225,19 @@ class StepHelper:
 
     def switch_to_default_content(self):
         self.wd.switch_to.default_content()
+
+    def wait_for_non_empty_attribute(self, locator, attribute, timeout=10):
+        """ Waits until the specified attribute of the element located by the given locator is non-empty. """
+        WebDriverWait(self.wd, timeout).until(lambda driver: driver.find_element(
+            self.get_how(locator), locator).get_attribute(attribute).strip() != "")
+
+    def find_and_click_element_in_same_row(self, table, search_text, search_column, target_column):
+        search_locator = table.column_selectors[search_column]
+        search_elements = self.get_list_of_elements(search_locator)
+        for index, element in enumerate(search_elements):
+            if element.text == search_text:
+                target_locator = table.column_selectors[target_column]
+                target_elements = self.get_list_of_elements(target_locator)
+                target_element = target_elements[index]
+                target_element.click()
+                break

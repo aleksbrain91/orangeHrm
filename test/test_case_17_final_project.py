@@ -1,4 +1,3 @@
-import time
 import re
 from helpers.csv_helper import CSVHelper
 from helpers.utils import Utils
@@ -48,7 +47,7 @@ def test_case_2_filter_attendance_sheets_by_pay_period(app):
 # 5. Verify that the table updates to reflect the entered Employee Name
 # Expected Result: The Attendance Sheets table updates to show records matching the entered Employee Name.
 
-def test_case_3__filter_attendance_sheets_by_employee_name(app):
+def test_case_3_filter_attendance_sheets_by_employee_name(app):
     app.orangeHrm.open_application_and_login()
     app.orangeHrm.sideMenu.click_on_side_menu_button("Attendance")
     app.orangeHrm.attendance.wait_for_page_load()
