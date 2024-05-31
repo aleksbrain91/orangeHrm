@@ -54,3 +54,11 @@ class Table:
         rows = self.get_rows()
         for row in rows:
             row.click_column_button(column_name)
+
+    def click_on_cell(self, row_index: int, column_name: str):
+        """Clicks a button or checkbox located in the specified cell."""
+        rows = self.get_rows()
+        if row_index < len(rows):
+            rows[row_index].click_column_button(column_name)
+        else:
+            raise IndexError("Row index out of range")

@@ -22,6 +22,8 @@ class CareerDevelopment:
     save_button = 'button[type="submit"]'
     success_message = '.toast-message'
     back_button = '//button[text()="Back"]'
+    filter_button = 'a[data-tooltip="Filter"]'
+    employee_job_title = '.top-ribbon-job-title'
 
     def __init__(self, step: StepHelper, wd: WebDriver):
         self.step = step
@@ -73,7 +75,6 @@ class CareerDevelopment:
 
     def get_add_idp_header_text(self):
         self.step.wait_for_element(self.save_button, 10)
-        # self.step.wait_for_element(self.add_idp_header, 20)
         return self.step.get_element_text(self.add_idp_header)
 
     def set_employee_name(self, text):
@@ -114,3 +115,10 @@ class CareerDevelopment:
 
     def find_and_click_added_employee_checkbox(self, text):
         self.step.find_and_click_element_in_same_row(self.table, text, 'employee_name', 'checkboxes')
+
+    def click_on_filter_button(self):
+        self.step.click_on_element(self.filter_button)
+
+    def get_employee_job_title(self):
+        self.step.wait_for_element(self.employee_job_title, 10)
+        return self.step.get_element_text(self.employee_job_title)
