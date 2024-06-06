@@ -17,6 +17,7 @@ import pytest
 def test_case_8_verify_retrieval_of_widget_names_in_employee_management_component(app):
     app.orangeHrm.open_application_and_login()
     app.orangeHrm.sideMenu.click_on_side_menu_button("Employee Management")
+    app.orangeHrm.employeeManagement.wait_for_table_reload()
     app.orangeHrm.employeeManagement.click_on_home_button()
     app.assert_that(app.orangeHrm.employeeManagement.get_widget_names().sort()).is_equal_to(
         ['Quick Access', 'Time At Work', 'Employees on Leave Today', 'Latest News', 'Latest Documents',
@@ -44,6 +45,7 @@ widgets_names_inside_my_widgets_list = ['My Actions', 'Quick Access', 'Employees
 def test_case_8_1_verify_retrieval_of_widget_names_in_employee_management_component_inside_the_configuration(app):
     app.orangeHrm.open_application_and_login()
     app.orangeHrm.sideMenu.click_on_side_menu_button("Employee Management")
+    app.orangeHrm.employeeManagement.wait_for_table_reload()
     app.orangeHrm.employeeManagement.click_on_home_button()
     app.orangeHrm.employeeManagement.click_on_widget_config_button()
     app.orangeHrm.employeeManagement.click_on_my_widgets_button_inside_widget_panel()

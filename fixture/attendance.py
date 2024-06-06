@@ -1,3 +1,4 @@
+import logging
 import os
 import time
 
@@ -37,7 +38,8 @@ class Attendance:
                                              'status': '#pim_report_table tbody tr td:nth-child(8)'})
 
     def wait_for_page_load(self):
-        self.step.specified_element_is_not_present(self.circle_spinner, 20)
+        self.step.specified_element_is_not_present(self.circle_spinner, 30)
+        self.step.specified_element_is_present(self.table_headers, 10)
 
     def get_table_headers_text(self):
         return self.step.get_elements_texts(self.table_headers)
@@ -77,10 +79,14 @@ class Attendance:
 
     def export_to_csv(self):
         self.step.click_on_element(self.export_csv_button)
-        # self.step.specified_element_is_not_present(self.page_loading_animation, 20)
         time.sleep(3)
         download_path = os.path.join(Utils.get_project_root(), 'files', 'download')
+        if not os.path.exists(download_path):
+            logging.info(f"Creating download directory: {download_path}")
+            os.makedirs(download_path)
+        logging.info(f"Download path: {download_path}")
         downloaded_files = os.listdir(download_path)
+        logging.info(f"Downloaded files: {downloaded_files}")
         if len(downloaded_files) == 0:
             raise Exception("No files were downloaded.")
 

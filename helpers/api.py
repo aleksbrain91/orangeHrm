@@ -17,7 +17,7 @@ class Api:
             "Accept-Language": "en-US,en;q=0.9"
         })
 
-        login_page_url = 'https://admin_portnov-trials712.orangehrmlive.com/auth/login'
+        login_page_url = 'https://portnov01-trials713.orangehrmlive.com/auth/login'
         login_page_response = Api.session.get(login_page_url, verify=False)
         if login_page_response.status_code != 200:
             return None
@@ -28,7 +28,7 @@ class Api:
             return None
 
         csrf_token = csrf_token['value']
-        login_url = "https://admin_portnov-trials712.orangehrmlive.com/auth/validateCredentials"
+        login_url = "https://portnov01-trials713.orangehrmlive.com/auth/validateCredentials"
         login_data = {
             "login[_csrf_token]": csrf_token,
             "txtUsername": os.getenv('USERNAME_TEST'),
@@ -36,7 +36,7 @@ class Api:
         }
         login_response = Api.session.post(login_url, data=login_data)
         if login_response.status_code == 200:
-            token_url = "https://admin_portnov-trials712.orangehrmlive.com/core/getLoggedInAccountToken"
+            token_url = "https://portnov01-trials713.orangehrmlive.com/core/getLoggedInAccountToken"
             token_response = Api.session.get(token_url, verify=False)
             if token_response.ok:
                 Api.access_token = token_response.json()['token']['access_token']
@@ -54,7 +54,7 @@ class Api:
             print("Access token is not available. Please check login credentials.")
             return
 
-        url = "https://admin_portnov-trials712.orangehrmlive.com/api/recruitment/candidates"
+        url = "https://portnov01-trials713.orangehrmlive.com/api/recruitment/candidates"
         headers = {
             "Authorization": f"Bearer {Api.access_token}",
             "Content-Type": "application/json"

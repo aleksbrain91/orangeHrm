@@ -50,4 +50,5 @@ class EmployeeManagement:
         self.step.click_on_element(self.filter_button)
 
     def wait_for_table_reload(self):
+        self.step.wait_for_element(self.employee_management_table_loading_spinner, 5)
         self.step.specified_element_is_not_present(self.employee_management_table_loading_spinner, 30)

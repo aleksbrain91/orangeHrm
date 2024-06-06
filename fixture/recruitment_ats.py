@@ -1,12 +1,10 @@
+import logging
+logging.basicConfig(level=logging.INFO)
 import os
 import time
-
-from selenium.webdriver.remote.webdriver import WebDriver
-from fixture.step import StepHelper
 from helpers.utils import Utils
 from fixture.step import StepHelper
 from selenium.webdriver.remote.webdriver import WebDriver
-
 from fixture.table import Table
 
 
@@ -57,7 +55,11 @@ class RecruitmentAts:
         time.sleep(3)  # Additional sleep to ensure download completes
         # Check the download directory for the downloaded file
         download_path = os.path.join(Utils.get_project_root(), 'files', 'download')
+        logging.info(f"Download path: {download_path}")
+        if not os.path.exists(download_path):
+            raise Exception(f"Download directory does not exist: {download_path}")
         downloaded_files = os.listdir(download_path)
+        logging.info(f"Downloaded files: {downloaded_files}")
         if len(downloaded_files) == 0:
             raise Exception("No files were downloaded.")
 

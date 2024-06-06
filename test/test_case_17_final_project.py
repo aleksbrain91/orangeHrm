@@ -51,9 +51,9 @@ def test_case_3_filter_attendance_sheets_by_employee_name(app):
     app.orangeHrm.open_application_and_login()
     app.orangeHrm.sideMenu.click_on_side_menu_button("Attendance")
     app.orangeHrm.attendance.wait_for_page_load()
-    app.orangeHrm.attendance.set_employee_name("Tanya Arva")
+    app.orangeHrm.attendance.set_employee_name("Brian Butler")
     app.orangeHrm.attendance.wait_for_page_load()
-    app.assert_that(app.orangeHrm.attendance.table.get_column_data("employee_name")).contains_only("Tanya Arva")
+    app.assert_that(app.orangeHrm.attendance.table.get_column_data("employee_name")).contains_only("Brian Butler")
 
 # Test Case 4: Export Attendance Sheets to CSV
 # Description: Verify that the Attendance Sheets can be exported to CSV.

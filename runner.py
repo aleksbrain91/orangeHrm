@@ -2,9 +2,16 @@ import subprocess
 import sys
 import os
 import shutil
+import platform
 
 # Windows example: r'C:\Users\YOUR_USERNAME\allure-2.27.0\allure-2.27.0\bin\allure.bat'
-ALLURE_COMMAND_PATH = r'C:\allure-2.27.0\bin\allure.bat'
+# ALLURE_COMMAND_PATH = r'C:\allure-2.27.0\bin\allure.bat'
+
+if platform.system() == 'Windows':
+    ALLURE_COMMAND_PATH = r'C:\allure-2.27.0\bin\allure.bat'
+else:  # Assume Linux or macOS
+    ALLURE_COMMAND_PATH = 'allure'
+
 
 def clear_directory(directory):
     if os.path.exists(directory):
