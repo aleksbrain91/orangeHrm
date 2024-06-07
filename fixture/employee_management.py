@@ -36,6 +36,7 @@ class EmployeeManagement:
 
     def click_on_widget_config_button(self):
         self.step.specified_element_is_not_present(self.employee_management_table_loading_spinner, 15)
+        self.step.wait_for_element(self.widget_config_button, 10)
         self.step.click_on_element(self.widget_config_button)
 
     def click_on_my_widgets_button_inside_widget_panel(self):
