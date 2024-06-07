@@ -72,6 +72,7 @@ def test_case_9_2_employee_management_table_location_change(app):
     app.assert_that(sorted(app.orangeHrm.employeeManagement.table.get_column_data('locations'))).is_equal_to(
         sorted(expected_list_for_emp_locations))
     app.orangeHrm.employeeManagement.click_on_filter_button()
+    app.assert_that(app.orangeHrm.popUp.get_filter_employee_table_header()).is_equal_to("Filter Employees By")
     app.orangeHrm.popUp.set_employee_filter_table_location_dropdown("Australia")
     app.orangeHrm.popUp.click_on_filter_search_button()
     app.orangeHrm.employeeManagement.wait_for_table_reload()

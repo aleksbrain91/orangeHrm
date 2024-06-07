@@ -141,24 +141,34 @@ class StepHelper:
                 element.click()
                 break
 
-    def click_element_containing_text(self, locator, text):
-        """Clicks on an element containing the specified text, case-insensitively."""
+    def click_element_containing_text(self, locator, text, scrollIntoView=False, smartScroll=False):
+        """Clicks on an element containing the specified text, case-insensitively, with optional scrolling."""
         elements = self.get_list_of_elements(locator)
         text_lower = text.lower()  # Convert the search text to lowercase for case-insensitive comparison
         clicked = False
-
         for element in elements:
             element_text = element.text.lower()  # Convert each element's text to lowercase
             if text_lower in element_text:
                 print(f"\nAttempting to click on element containing text: '{text}' with actual text: '{element.text}'")
                 try:
+                    if smartScroll:
+                        # Smart scrolling: scroll a little, then check if the element is visible
+                        self.wd.execute_script("arguments[0].scrollIntoView({block: 'nearest'});", element)
+                        time.sleep(0.5)
+                    if scrollIntoView:
+                        # Smooth scrolling into view
+                        self.wd.execute_script("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});",
+                                               element)
+                        time.sleep(1)  # Adjust sleep time as needed
+                    # Use ActionChains to ensure the element is visible and clickable
+                    actions = ActionChains(self.wd)
+                    actions.move_to_element(element).perform()
                     element.click()
                     clicked = True
                     print("\nClick successful.")
                     break  # Exit the loop after clicking
                 except Exception as e:
                     print(f"Failed to click on the element. Error: {e}")
-
         if not clicked:
             print(f"No clickable element found containing text: '{text}'")
 

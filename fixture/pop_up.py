@@ -195,14 +195,16 @@ class PopUp:
         return self.step.get_element_text(self.employee_filter_table_header)
 
     def set_employee_filter_table_location_dropdown(self, text):
+        self.step.wait_for_element(self.employee_filter_location_input_field, 5)
         self.step.click_on_element(self.employee_filter_location_input_field, True)
         time.sleep(0.5)
-        self.step.click_element_containing_text(self.employee_filter_list_of_drop_down_values, text)
+        self.step.click_element_containing_text(self.employee_filter_list_of_drop_down_values, text, True)
 
     def set_employee_filter_table_employment_status_dropdown(self, text):
+        self.step.wait_for_element(self.employee_filter_employment_status_input_field, 5)
         self.step.click_on_element(self.employee_filter_employment_status_input_field, True)
         time.sleep(0.5)
-        self.step.click_element_by_text(self.employee_filter_list_of_drop_down_values, text)
+        self.step.click_element_by_text(self.employee_filter_list_of_drop_down_values, text, True)
 
     def set_hr_administration_drop_downs(self, user_name=None, employee_name=None, ess_role=None, admin_role=None, supervisor_role=None, status=None, location=None):
         if user_name is not None:

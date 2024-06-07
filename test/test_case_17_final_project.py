@@ -165,7 +165,6 @@ def test_case_8_verify_include_filter_functionality(app):
     app.orangeHrm.sideMenu.click_on_side_menu_button("Attendance")
     app.orangeHrm.attendance.wait_for_page_load()
     app.orangeHrm.attendance.set_include("Past Employees Only")
-    app.orangeHrm.attendance.wait_for_page_load()
     app.assert_that(app.orangeHrm.attendance.get_info_message_text()).is_equal_to("No Results Found")
 
 # Test Case 9: Display Leave Types Checkbox Functionality

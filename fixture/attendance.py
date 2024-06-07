@@ -95,6 +95,7 @@ class Attendance:
         self.step.scroll_element_into_center(self.table_headers)
 
     def get_info_message_text(self):
+        self.step.wait_for_element(self.info_message, 10)
         return self.step.get_element_text(self.info_message)
 
     def click_on_leave_checkbox(self):
