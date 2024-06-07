@@ -90,7 +90,7 @@ class PopUp:
         return self.step.get_element_text(self.confirm_pass_required_message)
 
     def input_in_pass_field(self, text):
-        self.step.input_text(self.password_field, text)
+        self.step.input_text(self.password_field, text, True)
 
     def get_pass_strength_message(self):
         self.step.wait_for_element(self.pass_strength_message, 30)

@@ -60,12 +60,14 @@ class StepHelper:
             time.sleep(2)
         ActionChains(self.wd).move_to_element(element).pause(pause_before_click).click().perform()
 
-    def input_text(self, locator, text):
+    def input_text(self, locator, text, pause_before_input=False):
         # Enters text into a specified input field.
         element = WebDriverWait(self.wd, 10).until(
             EC.visibility_of_element_located((self.get_how(locator), locator)))
         element.click()
         element.clear()
+        if pause_before_input == True:
+            time.sleep(0.5)
         element.send_keys(text)
 
     def get_list_of_elements(self, locator):

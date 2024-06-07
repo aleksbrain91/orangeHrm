@@ -18,13 +18,15 @@ class Leave:
         self.calendar = Calendar(self.step, CalendarType.DEFAULT)
 
     def wait_for_page_load(self):
+        self.step.wait_for_element(self.loading_spinner_bar, 10)
         self.step.specified_element_is_not_present(self.loading_spinner_bar, 10)
 
     def click_on_from_calendar_button(self):
-        self.step.wait_for_element(self.from_calendar_button)
+        self.step.wait_for_element(self.from_calendar_button, 10)
         self.step.click_on_element(self.from_calendar_button)
 
     def click_on_to_calendar_button(self):
+        self.step.wait_for_element(self.to_calendar_button, 10)
         self.step.click_on_element(self.to_calendar_button)
 
     def click_on_search_button(self):
