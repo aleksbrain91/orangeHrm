@@ -1,3 +1,5 @@
+import os
+
 from helpers.utils import Utils
 # Test Case: Verify Added Candidates in Recruitment Section
 
@@ -23,7 +25,8 @@ def test_case_verify_added_candidates_in_recruitment_section(app):
     app.orangeHrm.popUp.recruitment_add_candidate.set_first_name(first_name)
     app.orangeHrm.popUp.recruitment_add_candidate.set_last_name(last_name)
     app.orangeHrm.popUp.recruitment_add_candidate.set_email(email)
-    app.orangeHrm.popUp.recruitment_add_candidate.upload_resume(Utils.get_project_root(), "files")
+    resume_path = os.path.join(Utils.get_project_root(), "files", "test_upload.txt")  # Adjust the file name as needed
+    app.orangeHrm.popUp.recruitment_add_candidate.upload_resume(resume_path)
     app.orangeHrm.popUp.recruitment_add_candidate.click_on_save_button()
     app.orangeHrm.popUp.recruitment_add_candidate.wait_for_add_candidate_window_loading()
     app.assert_that(app.orangeHrm.recruitmentAts.get_action_message_text()).is_equal_to("Successfully Saved")

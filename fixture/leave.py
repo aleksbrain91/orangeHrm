@@ -21,6 +21,7 @@ class Leave:
         self.step.specified_element_is_not_present(self.loading_spinner_bar, 10)
 
     def click_on_from_calendar_button(self):
+        self.step.wait_for_element(self.from_calendar_button)
         self.step.click_on_element(self.from_calendar_button)
 
     def click_on_to_calendar_button(self):
