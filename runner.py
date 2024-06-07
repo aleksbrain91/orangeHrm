@@ -2,16 +2,11 @@ import subprocess
 import sys
 import os
 import shutil
-import platform
 
-# Windows example: r'C:\Users\YOUR_USERNAME\allure-2.27.0\allure-2.27.0\bin\allure.bat'
-# ALLURE_COMMAND_PATH = r'C:\allure-2.27.0\bin\allure.bat'
-
-if platform.system() == 'Windows':
+if os.name == 'nt':  # Windows
     ALLURE_COMMAND_PATH = r'C:\allure-2.27.0\bin\allure.bat'
 else:  # Assume Linux or macOS
     ALLURE_COMMAND_PATH = 'allure'
-
 
 def clear_directory(directory):
     if os.path.exists(directory):
@@ -54,7 +49,11 @@ def run_tests_and_generate_report(headless=False, parallel=False, group=None, te
     # pytest_cmd.append('-v')  # Add verbose output
 
     print("Executing command:", ' '.join(pytest_cmd))
-    subprocess.call(pytest_cmd)
+    result = subprocess.call(pytest_cmd)
+
+    if result != 0:
+        sys.exit(result)  # Exit with the same status code as pytest if tests fail
+
     if not test_name:
         generate_allure_report()
 

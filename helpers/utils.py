@@ -34,6 +34,18 @@ class Utils:
         return os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 
     @staticmethod
+    def get_path_to_folder(folder=None, sub_folder=None):
+        # Get the project root (this should be defined in your Utils module)
+        project_root = Utils.get_project_root()
+
+        # Create a list of parts, filtering out None values
+        parts = [project_root, folder, sub_folder]
+        parts = [part for part in parts if part is not None]
+
+        # Join the parts to form the final path
+        return os.path.join(*parts)
+
+    @staticmethod
     def clear_download_directory():
         download_path = os.path.join(Utils.get_project_root(), 'files', 'download')
         if os.path.exists(download_path):

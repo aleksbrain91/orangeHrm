@@ -230,6 +230,10 @@ post {
 pipeline {
     agent any
 
+    parameters {
+        booleanParam(name: 'PARALLEL', defaultValue: false, description: 'Run tests in parallel')
+    }
+
     environment {
         ALLURE_HOME = '/opt/allure-2.13.8'
         ALLURE_CMD = "${ALLURE_HOME}/bin/allure"
@@ -240,9 +244,12 @@ pipeline {
     stages {
         stage('Install Dependencies') {
             steps {
-                sh 'which google-chrome'
-                sh 'which git'
-                sh 'python3 -m pip --version'
+                script {
+                    def result = sh(script: 'which google-chrome && which git && python3 -m pip --version', returnStatus: true)
+                    if (result != 0) {
+                        error "Dependency installation failed"
+                    }
+                }
             }
         }
         stage('Checkout') {
@@ -252,14 +259,12 @@ pipeline {
         }
         stage('Setup Python') {
             steps {
-                sh 'python3 -m pip install --upgrade pip'
-                sh 'pip3 install -r requirements.txt'
-            }
-        }
-        stage('Verify pytest Installation') {
-            steps {
-                sh 'which pytest'
-                sh 'pytest --version'
+                script {
+                    def result = sh(script: 'python3 -m pip install --upgrade pip && pip3 install -r requirements.txt', returnStatus: true)
+                    if (result != 0) {
+                        error "Python setup failed"
+                    }
+                }
             }
         }
         stage('Create .env File with Jenkins Credentials') {
@@ -269,10 +274,9 @@ pipeline {
                         def envContent = """
 USERNAME_TEST=${USERNAME_TEST}
 PASSWORD=${PASSWORD}
-BASE_URL=https://your-app-url
+BASE_URL=${BASE_URL}
 """
                         writeFile file: '.env', text: envContent
-                        sh 'cat .env'  // Print .env file contents for verification
                     }
                 }
             }
@@ -282,55 +286,45 @@ BASE_URL=https://your-app-url
                 script {
                     def headless = '--headless'
                     def parallel = params.PARALLEL ? '--parallel' : ''
-                    sh '''
-                        echo "Running tests with the following environment variables:"
-                        cat .env
-
-                        # Run the tests
-                        python3 runner.py testHeadless ${headless} ${parallel}
-                    '''
-                }
-            }
-        }
-        stage('Generate Allure Report') {
-            steps {
-                script {
-                    if (fileExists('allure-report/history')) {
-                        sh '''
-                            echo "Previous history found, copying to allure-results"
-                            cp -r allure-report/history allure-results/
-                            echo "Contents of allure-results/history after copy:"
-                            ls -la allure-results/history
-                        '''
-                    } else {
-                        echo "No previous history found"
+                    def command = "python3 runner.py testHeadless ${headless} ${parallel}"
+                    def result = sh(script: command, returnStatus: true)
+                    if (result != 0) {
+                        currentBuild.result = 'FAILURE'
+                        error "Tests failed"
                     }
                 }
-                sh '''
-                    ${ALLURE_CMD} generate allure-results -o allure-report --clean
-                    echo "Contents of allure-report/history after generation:"
-                    ls -la allure-report/history
-                '''
             }
         }
     }
     post {
         always {
-            archiveArtifacts artifacts: 'allure-report/history/**', allowEmptyArchive: true
-            archiveArtifacts artifacts: 'allure-report/**', allowEmptyArchive: true
-            publishHTML(target: [
-                reportName: 'Allure Report',
-                reportDir: 'allure-report',
-                reportFiles: 'index.html',
-                keepAll: true,
-                alwaysLinkToLastBuild: true,
-                allowMissing: false
-            ])
-            emailext(
-                subject: "${currentBuild.currentResult}: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
-                body: "Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]': ${currentBuild.currentResult}",
-                recipientProviders: [[$class: 'DevelopersRecipientProvider']]
-            )
+            script {
+                // Ensure Allure results are generated even if tests fail
+                try {
+                    if (fileExists('allure-report/history')) {
+                        sh 'cp -r allure-report/history allure-results/'
+                    }
+                    sh '${ALLURE_CMD} generate allure-results -o allure-report --clean'
+                } catch (Exception e) {
+                    echo "Failed to generate Allure report: ${e.getMessage()}"
+                }
+
+                archiveArtifacts artifacts: 'allure-results/**', allowEmptyArchive: true
+                archiveArtifacts artifacts: 'allure-report/**', allowEmptyArchive: true
+                publishHTML(target: [
+                    reportName: 'Allure Report',
+                    reportDir: 'allure-report',
+                    reportFiles: 'index.html',
+                    keepAll: true,
+                    alwaysLinkToLastBuild: true,
+                    allowMissing: false
+                ])
+            }
+        }
+        failure {
+            script {
+                echo 'One or more tests failed. Check the Allure Report for details.'
+            }
         }
     }
 }
