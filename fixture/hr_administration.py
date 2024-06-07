@@ -34,7 +34,7 @@ class HrAdministration:
         self.step.wait_for_element(self.save_button)
 
     def click_filter_button(self):
-        self.step.wait_for_element(self.first_table_row,40)
+        self.step.wait_for_element(self.first_table_row,50)
         self.step.click_on_element(self.filter_users_button)
 
     def get_filtered_usernames(self):
