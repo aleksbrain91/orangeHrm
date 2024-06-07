@@ -12,7 +12,7 @@ class EmployeeManagement:
     widget_config_panel = '.widget-configuration-panel'   # '//span[@class="widget-configuration-panel active"]'
     my_widgets_button_inside_widget_panel = '//span[text()="My Widgets"]'
     widgets_names_inside_my_widgets = '.configuration-tab .oxd-switch-label'
-    # employee_management_loading_spinners = '//div[text()="Loading"]'
+    last_loading_spinners = '(//div[@class="oxd-circle-loader"])[last()]'
     employee_table_first_row = '#employeeListTable tbody tr:nth-child(1)'
     filter_button = "//i[text()='oxd_filter']"
     employee_management_table_loading_spinner = '#loading-bar .bar .peg'
@@ -49,6 +49,10 @@ class EmployeeManagement:
 
     def click_on_filter_button(self):
         self.step.click_on_element(self.filter_button)
+
+    def wait_spinners_gone(self):
+        self.step.wait_for_element(self.last_loading_spinners)
+        self.step.specified_element_is_not_present(self.last_loading_spinners, 20)
 
     def wait_for_table_reload(self):
         self.step.wait_for_element(self.employee_management_table_loading_spinner, 10)

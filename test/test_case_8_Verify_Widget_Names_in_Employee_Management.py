@@ -19,6 +19,7 @@ def test_case_8_verify_retrieval_of_widget_names_in_employee_management_componen
     app.orangeHrm.sideMenu.click_on_side_menu_button("Employee Management")
     app.orangeHrm.employeeManagement.wait_for_table_reload()
     app.orangeHrm.employeeManagement.click_on_home_button()
+    app.orangeHrm.employeeManagement.wait_spinners_gone()
     app.assert_that(app.orangeHrm.employeeManagement.get_widget_names().sort()).is_equal_to(
         ['Quick Access', 'Time At Work', 'Employees on Leave Today', 'Latest News', 'Latest Documents',
          'Performance Quick Feedback', "Current Year's Leave Taken by Department", 'Buzz Latest Posts',
@@ -47,6 +48,7 @@ def test_case_8_1_verify_retrieval_of_widget_names_in_employee_management_compon
     app.orangeHrm.sideMenu.click_on_side_menu_button("Employee Management")
     app.orangeHrm.employeeManagement.wait_for_table_reload()
     app.orangeHrm.employeeManagement.click_on_home_button()
+    app.orangeHrm.employeeManagement.wait_spinners_gone()
     app.orangeHrm.employeeManagement.click_on_widget_config_button()
     app.orangeHrm.employeeManagement.click_on_my_widgets_button_inside_widget_panel()
     app.assert_that(sorted(app.orangeHrm.employeeManagement.get_widgets_names_inside_my_widgets())).is_equal_to(sorted(widgets_names_inside_my_widgets_list))
