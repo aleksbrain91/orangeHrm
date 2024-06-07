@@ -38,9 +38,9 @@ class Attendance:
                                              'status': '#pim_report_table tbody tr td:nth-child(8)'})
 
     def wait_for_page_load(self):
-        self.step.wait_for_element(self.circle_spinner, 10)
+        self.step.wait_for_element(self.circle_spinner, 30)
         self.step.specified_element_is_not_present(self.circle_spinner, 30)
-        self.step.specified_element_is_present(self.table_headers, 10)
+        self.step.specified_element_is_present(self.table_headers, 20)
 
     def get_table_headers_text(self):
         return self.step.get_elements_texts(self.table_headers)

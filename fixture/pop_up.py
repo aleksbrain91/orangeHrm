@@ -81,7 +81,7 @@ class PopUp:
         return self.step.get_element_text(self.user_exists_error_massage)
 
     def click_on_password_field(self):
-        self.step.click_on_element(self.password_field)
+        self.step.click_on_element(self.password_field, True)
 
     def get_pass_required_message(self):
         return self.step.get_element_text(self.pass_required_message)
