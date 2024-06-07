@@ -4,7 +4,7 @@ from helpers.utils import Utils
 
 
 class CSVHelper:
-    download_directory = os.path.join(Utils.get_project_root(), 'Files', 'Download')
+    download_directory = os.path.join(Utils.get_project_root(), 'files', 'download')
 
     @staticmethod
     def get_column_values(file_name, column_index, partial_name=False):

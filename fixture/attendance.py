@@ -46,7 +46,7 @@ class Attendance:
         return self.step.get_elements_texts(self.table_headers)
 
     def set_pay_period(self,text):
-        self.step.click_on_element(self.pay_period_button)
+        self.step.click_on_element(self.pay_period_button, True)
         self.step.click_element_by_text(self.arrow_dropdowns, text, True)
 
     def set_data_format(self, text):
