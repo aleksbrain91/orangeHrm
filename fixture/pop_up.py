@@ -192,19 +192,22 @@ class PopUp:
 
     def get_filter_employee_table_header(self):
         self.step.wait_for_element(self.employee_filter_table_header)
+        time.sleep(0.5)
         return self.step.get_element_text(self.employee_filter_table_header)
 
     def set_employee_filter_table_location_dropdown(self, text):
-        self.step.wait_for_element(self.employee_filter_location_input_field, 5)
-        self.step.click_on_element(self.employee_filter_location_input_field, True)
-        time.sleep(1)
-        self.step.click_element_containing_text(self.employee_filter_list_of_drop_down_values, text, True)
+        self.step.specified_element_is_present(self.employee_filter_location_input_field, 5)
+        self.step.click_on_element(self.employee_filter_location_input_field)
+        if self.step.get_element_attribute_value(self.employee_filter_location_input_field, "class") == "select-dropdown active":
+            time.sleep(0.5)
+            self.step.click_element_containing_text(self.employee_filter_list_of_drop_down_values, text, True)
 
     def set_employee_filter_table_employment_status_dropdown(self, text):
-        self.step.wait_for_element(self.employee_filter_employment_status_input_field, 5)
-        self.step.click_on_element(self.employee_filter_employment_status_input_field, True)
-        time.sleep(0.5)
-        self.step.click_element_by_text(self.employee_filter_list_of_drop_down_values, text, True)
+        self.step.specified_element_is_present(self.employee_filter_employment_status_input_field, 5)
+        self.step.click_on_element(self.employee_filter_employment_status_input_field)
+        if self.step.get_element_attribute_value(self.employee_filter_employment_status_input_field, "class") == "select-dropdown active":
+            time.sleep(0.5)
+            self.step.click_element_containing_text(self.employee_filter_list_of_drop_down_values, text, True)
 
     def set_hr_administration_drop_downs(self, user_name=None, employee_name=None, ess_role=None, admin_role=None, supervisor_role=None, status=None, location=None):
         if user_name is not None:
