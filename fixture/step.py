@@ -1,7 +1,5 @@
 import time
-
-from selenium.common.exceptions import NoSuchElementException, WebDriverException
-from selenium.common.exceptions import TimeoutException
+from selenium.common.exceptions import NoSuchElementException, TimeoutException, StaleElementReferenceException
 from selenium.webdriver import ActionChains
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
@@ -47,18 +45,23 @@ class StepHelper:
         WebDriverWait(self.wd, waitingTime).until(
             EC.invisibility_of_element_located((self.get_how(locator), locator)))
 
-    def click_on_element(self, locator, pause_before_click=0.5, scrollInToView=False):
-        # Clicks on a specified element, optionally scrolling into view and pausing before clicking.
-        WebDriverWait(self.wd, 10).until(
-            EC.visibility_of_element_located((self.get_how(locator), locator)))
-        element = WebDriverWait(self.wd, 10).until(
-            EC.element_to_be_clickable((self.get_how(locator), locator))
-        )
-        if scrollInToView:
-            self.wd.execute_script(
-                "arguments[0].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });", element)
-            time.sleep(2)
-        ActionChains(self.wd).move_to_element(element).pause(pause_before_click).click().perform()
+    def click_on_element(self, locator, pause_before_click=0.5, scrollInToView=False, check_clickable=False):
+        # Clicks on a specified element, optionally scrolling into view, pausing before clicking,
+        # and checking if the element is clickable if specified.
+        try:
+            element = WebDriverWait(self.wd, 10).until(
+                EC.visibility_of_element_located((self.get_how(locator), locator)))
+            if check_clickable:
+                element = WebDriverWait(self.wd, 10).until(
+                    EC.element_to_be_clickable((self.get_how(locator), locator)))
+            if scrollInToView:
+                self.wd.execute_script(
+                    "arguments[0].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });", element)
+                time.sleep(2)
+            ActionChains(self.wd).move_to_element(element).pause(pause_before_click).click().perform()
+        except (StaleElementReferenceException, TimeoutException) as e:
+            print(f"Exception encountered: {e}")
+            raise
 
     def input_text(self, locator, text, pause_before_input=False):
         # Enters text into a specified input field.
@@ -137,8 +140,7 @@ class StepHelper:
                 time.sleep(0.5)
             if element.text == text and element.is_displayed():
                 if scrollIntoView:
-                    self.wd.execute_script("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});",
-                                           element)
+                    self.wd.execute_script("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});",element)
                     time.sleep(1)
                 element.click()
                 break

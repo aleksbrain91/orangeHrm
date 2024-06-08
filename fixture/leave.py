@@ -23,11 +23,11 @@ class Leave:
 
     def click_on_from_calendar_button(self):
         self.step.wait_for_element(self.from_calendar_button, 10)
-        self.step.click_on_element(self.from_calendar_button)
+        self.step.click_on_element(self.from_calendar_button, True, check_clickable=True)
 
     def click_on_to_calendar_button(self):
         self.step.wait_for_element(self.to_calendar_button, 10)
-        self.step.click_on_element(self.to_calendar_button)
+        self.step.click_on_element(self.to_calendar_button, True, check_clickable=True)
 
     def click_on_search_button(self):
         self.step.click_on_element(self.search_button)
