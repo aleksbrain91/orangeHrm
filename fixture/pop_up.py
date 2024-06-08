@@ -109,7 +109,7 @@ class PopUp:
         return self.step.get_element_text(self.filter_popup_table)
 
     def click_on_filter_search_button(self):
-        self.step.click_on_element(self.filter_search_button)
+        self.step.click_on_element(self.filter_search_button, True)
 
     def click_on_employee_name_filter(self):
         self.step.specified_element_is_present(self.employee_name_filter_field, 20)
@@ -192,7 +192,7 @@ class PopUp:
 
     def get_filter_employee_table_header(self):
         self.step.wait_for_element(self.employee_filter_table_header)
-        time.sleep(0.5)
+        time.sleep(1)
         return self.step.get_element_text(self.employee_filter_table_header)
 
     def set_employee_filter_table_location_dropdown(self, text):
