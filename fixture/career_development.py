@@ -41,7 +41,7 @@ class CareerDevelopment:
 
 
     def wait_for_table_loading(self):
-        self.step.wait_for_element(self.table_headers, 40)
+        self.step.wait_for_element(self.table_headers, 60)
 
     def get_table_headers_names(self):
         return self.step.get_elements_texts(self.table_headers)
