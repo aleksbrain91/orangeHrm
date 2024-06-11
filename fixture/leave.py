@@ -7,6 +7,7 @@ from selenium.webdriver.remote.webdriver import WebDriver
 class Leave:
     selector_example = "//div[@id='systemUserDiv'] //*[text()='add']"
     loading_spinner_bar = '.bar .peg'
+    table_headers = 'table[class="highlight bordered"] th'
     from_calendar_button = '//label[@for="from"]/.. //i[text()="date_range"]'
     to_calendar_button = '//label[@for="to"]/.. //i[text()="date_range"]'
     search_button = '//button[text()="Search"]'
@@ -20,6 +21,7 @@ class Leave:
     def wait_for_page_load(self):
         self.step.wait_for_element(self.loading_spinner_bar, 10)
         self.step.specified_element_is_not_present(self.loading_spinner_bar, 10)
+        self.step.wait_for_element(self.table_headers, 10)
 
     def click_on_from_calendar_button(self):
         self.step.wait_for_element(self.from_calendar_button, 10)
