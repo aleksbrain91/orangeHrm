@@ -255,3 +255,25 @@ class StepHelper:
                 target_element = target_elements[index]
                 target_element.click()
                 break
+
+    def wait_for_network_idle(self, timeout=30):
+        """Waits until there are no more than 0 active network connections for at least 500 ms."""
+        script = """
+        let performance = window.performance;
+        return new Promise((resolve, reject) => {
+            let interval = setInterval(() => {
+                let active = performance.getEntriesByType("resource")
+                    .filter((e) => e.initiatorType !== "xmlhttprequest" && e.initiatorType !== "fetch").length;
+                if (active === 0) {
+                    clearInterval(interval);
+                    resolve();
+                }
+            }, 500);
+        });
+        """
+        try:
+            WebDriverWait(self.wd, timeout).until(
+                lambda driver: driver.execute_script(script)
+            )
+        except TimeoutException:
+            print("Timed out waiting for network idle.")

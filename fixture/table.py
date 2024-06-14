@@ -1,7 +1,5 @@
 from typing import List, Dict
-import time
 from selenium.webdriver.remote.webelement import WebElement
-
 from fixture.step import StepHelper
 
 

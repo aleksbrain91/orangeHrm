@@ -1,5 +1,4 @@
 import os
-
 from fixture.attendance import Attendance
 from fixture.career_development import CareerDevelopment
 from fixture.employee_management import EmployeeManagement

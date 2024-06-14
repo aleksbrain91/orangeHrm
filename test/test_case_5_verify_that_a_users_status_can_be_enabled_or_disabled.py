@@ -1,4 +1,4 @@
-# Test Case 3: Verify that a user's status can be enabled or disabled
+# Test Case 5: Verify that a user's status can be enabled or disabled
 # Steps:
 # 1. Navigate to the "HR Administration" section in the OrangeHRM application.
 # 2. Click on the "Filter" icon/button.

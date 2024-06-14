@@ -48,7 +48,7 @@ class Training:
             self.step.click_element_containing_text(self.coordinator_input_field_autocomplete_dropdowns, text)
 
     def click_on_save_button(self):
-        self.step.click_on_element(self.save_button)
+        self.step.click_on_element(self.save_button,True, True)
 
     def get_save_confirmation_message_text(self):
         self.step.wait_for_element(self.save_confirmation_message, 5)

@@ -3,7 +3,6 @@ from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
 from assertpy import assert_that
-
 from fixture.demonstration_app_demo_qa import DemonstrationAppDemoQa
 from fixture.orange_hrm import OrangeHrm
 from fixture.step import StepHelper
@@ -30,7 +29,6 @@ class Application:
         # chrome_options.add_argument("user-agent='Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.113 Safari/537.36'")
 
         # Set up download directory
-        project_root = Utils.get_project_root()
         download_path = os.path.join(project_root, 'files', 'download')
 
         if not os.path.exists(download_path):
